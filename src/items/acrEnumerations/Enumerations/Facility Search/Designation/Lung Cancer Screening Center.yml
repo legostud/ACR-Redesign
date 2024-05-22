@@ -9,7 +9,7 @@ SharedFields:
   Value: 300
 - ID: "f917c951-1f75-4d62-b14a-bc6888d7eeca"
   Hint: Value
-  Value: Lung Cancer Screening Center
+  Value: LCSC
 Languages:
 - Language: en
   Versions:
@@ -28,11 +28,11 @@ Languages:
         sitecore\minyie.diaz@velir.com
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "592218d9-a5f5-4127-b917-ebe0a79966d5"
+      Value: "6176f675-dbd6-4d11-89dd-b76723064a41"
     - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
       Hint: __Updated by
       Value: |
         sitecore\minyie.diaz@velir.com
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20240521T165833Z
+      Value: 20240522T143139Z
