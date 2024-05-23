@@ -25,10 +25,10 @@ type InputProps = InputsProps & {
 };
 
 const Input = (props: InputProps) => {
-  const { type = 'text', label, placeholder, className, slot, disabled } = props;
+  const { type = 'text', label, placeholder, className, slot, onChange, disabled } = props;
 
   return (
-    <label className="flex flex-col gap-2 font-medium">
+    <label className={twMerge(cn('flex w-fit flex-col gap-2 text-t-body', className))}>
       {label}
       <TextField.Root
         size="3"
@@ -36,23 +36,25 @@ const Input = (props: InputProps) => {
         radius="large"
         placeholder={placeholder}
         disabled={disabled}
+        onChange={onChange}
         className={twMerge(
           cn(
-            'body-sm group h-[56px] bg-white shadow-[inset_0_0_0_1px] shadow-indigo-100 outline-none [&>input]:px-4',
-            className,
+            'body-sm group h-[56px] bg-white shadow-[inset_0_0_0_1px] shadow-indigo-100 outline-none [&>input]:px-4 [&>input]:indent-0',
             { 'bg-gray-20': disabled }
           )
         )}
       >
-        <TextField.Slot
-          side="right"
-          className={cn('text-black', {
-            'text-gray-70': disabled,
-          })}
-          pr="5"
-        >
-          {slot}
-        </TextField.Slot>
+        {slot && (
+          <TextField.Slot
+            side="right"
+            className={cn('text-black', {
+              'text-gray-70': disabled,
+            })}
+            pr="5"
+          >
+            {slot}
+          </TextField.Slot>
+        )}
       </TextField.Root>
     </label>
   );

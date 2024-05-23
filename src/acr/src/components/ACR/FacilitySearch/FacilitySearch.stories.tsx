@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import FacilitySearch from 'components/ACR/FacilitySearch/FacilitySearch';
+import FacilitySearch from 'components/ACR/FacilitySearch/FacilitySearchApp';
 
 import { defaultMockData } from './FacilitySearch.mock';
 

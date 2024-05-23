@@ -1,5 +1,6 @@
 export enum IconName {
   CHEVRON_RIGHT = 'chevron-right',
+  CHEVRON_LEFT = 'chevron-left',
   CHEVRON_DOWN = 'chevron-down',
   DOWNLOAD = 'download',
   EXTERNAL = 'external',

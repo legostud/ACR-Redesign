@@ -4,6 +4,7 @@ import { IconName } from 'src/enumerations/Icon.enum';
 
 const iconMap: { [key: string]: string } = {
   [IconName.CHEVRON_RIGHT]: 'ChevronRightIcon',
+  [IconName.CHEVRON_LEFT]: 'ChevronLeftIcon',
   [IconName.CHEVRON_DOWN]: 'ChevronDownIcon',
   [IconName.DOWNLOAD]: 'DownloadIcon',
   [IconName.EXTERNAL]: 'ExternalIcon',

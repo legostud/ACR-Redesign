@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { InputsProps } from './Inputs.props';
 
 import { Text } from '@radix-ui/themes';
@@ -5,12 +6,12 @@ import Icon from '../Icon/Icon';
 import { IconName } from 'src/enumerations/Icon.enum';
 
 import { useSelect } from 'downshift';
-import cn from 'classnames';
 import { twMerge } from 'tailwind-merge';
+import cn from 'classnames';
 
 export type SelectItem = { value: string; label: string };
 
-type DropdropProps = InputsProps & {
+type DropdropProps = Omit<InputsProps, 'onChange'> & {
   items: SelectItem[];
   value?: SelectItem | null;
   defaultSelectedItem?: SelectItem;
@@ -41,12 +42,15 @@ const Dropdown = (props: DropdropProps) => {
     getItemProps,
     toggleMenu,
     closeMenu,
+    reset,
   } = selectState;
 
+  useEffect(() => reset(), [label]);
+
   return (
-    <div className={twMerge('text-indigo-100', className)}>
+    <div className={twMerge('flex flex-col gap-2 text-indigo-100', className)}>
       {label && (
-        <Text as="label" {...getLabelProps()}>
+        <Text as="label" className="text-t-body" {...getLabelProps()}>
           {label}
         </Text>
       )}
@@ -71,7 +75,9 @@ const Dropdown = (props: DropdropProps) => {
             },
           })}
         >
-          <span>{selectedItem?.label ?? placeholder}</span>
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+            {selectedItem?.label ?? placeholder}
+          </span>
           <Icon
             className={cn('justify-self-end transition-all', { 'rotate-180': isOpen })}
             iconName={IconName.CHEVRON_DOWN}
@@ -80,7 +86,7 @@ const Dropdown = (props: DropdropProps) => {
         </button>
         <ul
           className={cn(
-            'absolute z-10 w-full overflow-hidden rounded-md rounded-b-[8px]  border-[1px] border-t-0 border-indigo-100 bg-white',
+            'rounded-md absolute z-10 max-h-96 w-full overflow-y-scroll rounded-b-[8px] border-[1px] border-t-0 border-indigo-100 bg-white',
             { hidden: !(isOpen && items?.length) }
           )}
           {...getMenuProps()}

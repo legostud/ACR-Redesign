@@ -10,10 +10,10 @@ import { ACREnumeration } from 'src/types/enum.props';
 export type FacilitySearchProps = ComponentProps &
   TestProps &
   FacilitySearchFields &
+  FacilitySearchLabels &
   FacilitySearchData;
 
 // Non-component data source fields
-// TODO_SCAFFOLD_BE: Populate if needed, remove if not
 export type FacilitySearchData = {
   externalFields?: {
     searchOptions: FacilityEnumeration[];
@@ -30,10 +30,13 @@ export type FacilityEnumeration = {
   value: string;
 };
 
-export type FacilitySearchFields = {
-  fields: {
-    searchBy: Field<string>;
+export type FacilitySearchLabels = {
+  labels?: {
+    searchByLabel: Field<string>;
     zipCityLabel: Field<string>;
+    stateTerritoryLabel: Field<string>;
+    countryLabel: Field<string>;
+    facilityNameLabel: Field<string>;
     withinLabel: Field<string>;
     modalityLabel: Field<string>;
     designationLabel: Field<string>;
@@ -42,6 +45,11 @@ export type FacilitySearchFields = {
     searchButtonLabel: Field<string>;
     previousLabel: Field<string>;
     nextLabel: Field<string>;
+  };
+};
+
+export type FacilitySearchFields = {
+  fields: {
     searchOptions: ACREnumeration[];
     modalityOptions: ACREnumeration[];
     designationOptions: ACREnumeration[];

@@ -38,7 +38,7 @@ const Breadcrumb = (props: BreadcrumbProps): JSX.Element => {
                     <span className="link-underline max-w-[45ch] overflow-hidden text-ellipsis">
                       {title}
                     </span>
-                    <Icon iconName={IconName.CHEVRON_RIGHT} className="h-[18] w-[18]" />
+                    <Icon iconName={IconName.CHEVRON_RIGHT} className="h-[9px] w-[9px]" />
                   </a>
                 </Flex>
               </li>
