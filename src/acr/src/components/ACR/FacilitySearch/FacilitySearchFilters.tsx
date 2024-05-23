@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { FacilitySearchProps } from './FacilitySearch.props';
 import { FacilitySearchType } from './FacilitySearch.enum';
@@ -7,7 +7,7 @@ import { Text } from '@sitecore-jss/sitecore-jss-nextjs';
 
 import { Flex } from '@radix-ui/themes';
 import Radio from '../Inputs/Radio';
-import Select from '../Inputs/Select';
+import Select, { SelectItem } from '../Inputs/Select';
 import Input from '../Inputs/Input';
 
 const FacilitySearchFilters = (props: FacilitySearchProps) => {
@@ -15,7 +15,7 @@ const FacilitySearchFilters = (props: FacilitySearchProps) => {
   const { stateOptions, countryOptions, milesOptions, modalityOptions, designationOptions } =
     externalFields ?? {};
 
-  const { searchType, search, labels, setSearchParams, setSearchType } =
+  const { searchType, search, labels, errors, setSearchParams, setSearchType } =
     useContext(FacilitySearchContext);
 
   const {
@@ -29,6 +29,15 @@ const FacilitySearchFilters = (props: FacilitySearchProps) => {
     modalityLabel,
     designationLabel,
   } = labels ?? {};
+
+  useEffect(() => {
+    // Set default search params
+    if (searchType === FacilitySearchType.STATE) {
+      setSearchParams({ state: stateOptions?.[0]?.value });
+    } else if (searchType === FacilitySearchType.COUNTRY) {
+      setSearchParams({ country: countryOptions?.[0]?.value });
+    }
+  }, [searchType]);
 
   return (
     <div data-ref="facility-search-filters">
@@ -67,19 +76,28 @@ const FacilitySearchFilters = (props: FacilitySearchProps) => {
 
       <Flex
         className="gap-6 md:items-stretch md:gap-[30px]"
-        align="start"
         direction={{ initial: 'column', md: 'row' }}
       >
         {searchType === FacilitySearchType.ZIP ? (
-          <Input label={zipCityLabel?.value} className="w-full basis-1/4" />
+          <div className="relative basis-1/4">
+            <Input label={zipCityLabel?.value} className="w-full" />
+            {errors['zip'] && (
+              <span className="absolute mt-1 text-[12px] text-red-100">{errors['zip']}</span>
+            )}
+          </div>
         ) : searchType === FacilitySearchType.FACILITY ? (
-          <Input
-            label={facilityNameLabel?.value}
-            className="w-full basis-1/4"
-            onChange={(e) =>
-              setSearchParams((prev: any) => ({ ...prev, facility: e?.target?.value }))
-            }
-          />
+          <div className="relative basis-1/4">
+            <Input
+              label={facilityNameLabel?.value}
+              className="w-full"
+              onChange={(e) =>
+                setSearchParams((prev: any) => ({ ...prev, facility: e?.target?.value }))
+              }
+            />
+            {errors['facility'] && (
+              <span className="absolute mt-1 text-[12px] text-red-100">{errors['facility']}</span>
+            )}
+          </div>
         ) : (
           <Select
             className="w-full basis-1/4"
@@ -89,13 +107,21 @@ const FacilitySearchFilters = (props: FacilitySearchProps) => {
                 ? stateTerritoryLabel?.value
                 : countryLabel?.value
             }
+            defaultSelectedItem={
+              searchType === FacilitySearchType.STATE
+                ? ({
+                    value: stateOptions?.[0]?.value,
+                    label: stateOptions?.[0]?.name,
+                  } as SelectItem)
+                : ({
+                    value: countryOptions?.[0]?.value,
+                    label: countryOptions?.[0]?.name,
+                  } as SelectItem)
+            }
             items={
               (searchType === FacilitySearchType.STATE ? stateOptions : countryOptions)
                 ?.sort((a, b) => a.name.localeCompare(b.name))
-                .map((r) => ({
-                  value: r.value,
-                  label: r.name,
-                })) ?? []
+                .map((r) => ({ value: r.value, label: r.name })) ?? []
             }
             onChange={(v) =>
               setSearchParams((prev: any) => ({

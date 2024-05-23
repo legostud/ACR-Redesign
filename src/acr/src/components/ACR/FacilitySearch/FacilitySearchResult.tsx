@@ -35,9 +35,9 @@ const FacilitySearchResult = (props: FacilitySearchResultProps) => {
   const isInProgress = result?.accStatus === 'U';
 
   return (
-    <Grid className="grid-cols-1 gap-x-[30px] gap-y-[20px] border-b-[1px] border-t-body py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <Grid className="grid-cols-1 gap-x-[30px] gap-y-6 border-b-[1px] border-t-body py-6 sm:grid-cols-2 md:gap-y-[20px] md:py-12 lg:grid-cols-4">
       <div
-        className={cn('w-fit rounded-[4px] px-3 py-1 text-white', {
+        className={cn('w-fit rounded-[4px] px-3 py-1 font-medium text-white', {
           'bg-purple-100': isAccredited,
           'bg-green-50': isInProgress,
         })}
@@ -48,13 +48,17 @@ const FacilitySearchResult = (props: FacilitySearchResultProps) => {
         {result?.name}
       </Text>
       <div className="col-start-1 md:col-start-2">
-        <Text as="p" className="sub-heading-b mb-2">
-          {/* TODO - Dictionary */}
-          Modalities Offered:
-        </Text>
-        <Text as="p" className="body-sm">
-          {result?.modalities}
-        </Text>
+        {result?.modalities && (
+          <>
+            <Text as="p" className="sub-heading-b mb-2">
+              {/* TODO - Dictionary */}
+              Modalities Offered:
+            </Text>
+            <Text as="p" className="body-sm">
+              {result?.modalities}
+            </Text>
+          </>
+        )}
       </div>
       <div className="body-sm col-start-1 sm:col-start-1 lg:col-start-3">
         <p>{result?.address}</p>
@@ -73,7 +77,7 @@ const FacilitySearchResult = (props: FacilitySearchResultProps) => {
               : ''}
         </a>
       </div>
-      <div className="col-start-1 flex justify-between gap-4 md:flex-col lg:col-start-5">
+      <div className="col-start-1 flex justify-between gap-4 md:flex-col md:justify-start lg:col-start-5">
         <button className="button">
           {/* TODO - Dictionary */}
           View on Map
