@@ -11,6 +11,11 @@ import { dictionaryKeys } from 'src/variables/dictionary';
 
 import FacilitySearch from './FacilitySearch';
 
+/**
+ * ACRAR-269 - Facility Search
+ * @param props
+ * @returns
+ */
 const FacilitySearchApp = (props: FacilitySearchProps): JSX.Element => {
   const { testId } = props;
 
@@ -62,4 +67,3 @@ export const getStaticProps: GetStaticComponentProps = async (_rendering, _layou
 };
 
 export default FacilitySearchApp;
-
