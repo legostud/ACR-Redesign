@@ -206,7 +206,7 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
 
         <button
           type="button"
-          className="button mt-2 px-5 py-4 !font-medium md:mt-8"
+          className="button mt-2 self-start px-5 py-4 !font-medium md:mt-8"
           onClick={search}
         >
           {searchButtonLabel}
