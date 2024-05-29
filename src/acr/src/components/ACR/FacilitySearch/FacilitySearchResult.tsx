@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { FacilitySearchContext } from './FaciltySearch.context';
 import { Grid, Text } from '@radix-ui/themes';
 
 import { ButtonStyle } from 'src/enumerations/ButtonStyle.enum';
@@ -5,7 +7,7 @@ import LinkBase from '../Link/LinkBase';
 
 import cn from 'classnames';
 
-export type SearchResultType = {
+export type FacilitySearchResultType = {
   accreditAcronym: string;
   name: string;
   address: string;
@@ -25,34 +27,39 @@ export type SearchResultType = {
 };
 
 type FacilitySearchResultProps = {
-  result: SearchResultType;
+  result: FacilitySearchResultType;
+  index: number;
 };
 
-const FacilitySearchResult = (props: FacilitySearchResultProps) => {
-  const { result } = props;
+const FacilitySearchResult = (props: FacilitySearchResultProps): JSX.Element => {
+  const { result, index } = props;
 
   const isAccredited = result?.accStatus === 'A';
   const isInProgress = result?.accStatus === 'U';
 
+  const { labels, setActiveLocation } = useContext(FacilitySearchContext);
+
   return (
-    <Grid className="grid-cols-1 gap-x-[30px] gap-y-6 border-b-[1px] border-t-body py-6 sm:grid-cols-2 md:gap-y-[20px] md:py-12 lg:grid-cols-4">
+    <Grid
+      data-ref="facility-search-result"
+      className="grid-cols-1 gap-x-[30px] gap-y-6 border-b-[1px] border-t-body py-6 md:grid-cols-2 md:gap-y-[20px] md:py-12 lg:grid-cols-4"
+    >
       <div
         className={cn('w-fit rounded-[4px] px-3 py-1 font-medium text-white', {
           'bg-purple-100': isAccredited,
           'bg-green-50': isInProgress,
         })}
       >
-        {isAccredited ? 'Accredited' : 'In Progress'}
+        {isAccredited ? labels?.accreditedLabel : labels?.inProgressLabel}
       </div>
       <Text as="p" className="title-b md:title-c col-start-1">
-        {result?.name}
+        {index + 1}) {result?.name}
       </Text>
       <div className="col-start-1 md:col-start-2">
         {result?.modalities && (
           <>
             <Text as="p" className="sub-heading-b mb-2">
-              {/* TODO - Dictionary */}
-              Modalities Offered:
+              {labels?.modalitiesOfferedLabel}
             </Text>
             <Text as="p" className="body-sm">
               {result?.modalities}
@@ -60,14 +67,14 @@ const FacilitySearchResult = (props: FacilitySearchResultProps) => {
           </>
         )}
       </div>
-      <div className="body-sm col-start-1 sm:col-start-1 lg:col-start-3">
+      <div className="body-sm col-start-1 md:col-start-1 lg:col-start-3">
         <p>{result?.address}</p>
         <p>
           {result?.city}, {result?.state} {result?.zip}
         </p>
         <p>{result?.phone}</p>
       </div>
-      <div className="col-start-1 sm:col-start-2 lg:col-start-4">
+      <div className="col-start-1 md:col-start-2 lg:col-start-4">
         {/* TODO - Get Seals */}
         <a href="/">
           {result?.mamFlag !== '0'
@@ -78,15 +85,25 @@ const FacilitySearchResult = (props: FacilitySearchResultProps) => {
         </a>
       </div>
       <div className="col-start-1 flex justify-between gap-4 md:flex-col md:justify-start lg:col-start-5">
-        <button className="button">
-          {/* TODO - Dictionary */}
-          View on Map
+        <button
+          className="button font-medium"
+          onClick={() => setActiveLocation({ index, info: result })}
+        >
+          {labels?.viewMapLabel}
         </button>
-        <LinkBase link={{ value: { href: '/', text: 'Get Directions' } }} style={ButtonStyle.CTA} />
+        <LinkBase
+          link={{
+            value: {
+              href: `https://www.google.com/maps/dir/?api=1&destination=${result?.lat},${result?.lng}`,
+              text: labels?.getDirectionsLabel,
+              target: '__blank',
+            },
+          }}
+          style={ButtonStyle.CTA}
+        />
       </div>
     </Grid>
   );
 };
 
 export default FacilitySearchResult;
-

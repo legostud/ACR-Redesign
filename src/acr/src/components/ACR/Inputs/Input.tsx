@@ -1,3 +1,4 @@
+import { ForwardedRef, forwardRef } from 'react';
 import { TextField } from '@radix-ui/themes';
 
 import { InputsProps } from './Inputs.props';
@@ -24,7 +25,7 @@ type InputProps = InputsProps & {
     | 'week';
 };
 
-const Input = (props: InputProps) => {
+const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
   const { type = 'text', label, placeholder, className, slot, onChange, disabled } = props;
 
   return (
@@ -32,6 +33,7 @@ const Input = (props: InputProps) => {
       {label}
       <TextField.Root
         size="3"
+        ref={ref}
         type={type}
         radius="large"
         placeholder={placeholder}
@@ -58,6 +60,8 @@ const Input = (props: InputProps) => {
       </TextField.Root>
     </label>
   );
-};
+});
+
+Input.displayName = 'Input';
 
 export default Input;

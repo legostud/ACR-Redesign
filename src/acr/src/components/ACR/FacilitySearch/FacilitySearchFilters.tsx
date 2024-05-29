@@ -1,21 +1,21 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 
 import { FacilitySearchProps } from './FacilitySearch.props';
 import { FacilitySearchType } from './FacilitySearch.enum';
 import { FacilitySearchContext } from './FaciltySearch.context';
-import { Text } from '@sitecore-jss/sitecore-jss-nextjs';
 
 import { Flex } from '@radix-ui/themes';
 import Radio from '../Inputs/Radio';
 import Select, { SelectItem } from '../Inputs/Select';
 import Input from '../Inputs/Input';
 
-const FacilitySearchFilters = (props: FacilitySearchProps) => {
+const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
   const { externalFields } = props;
+
   const { stateOptions, countryOptions, milesOptions, modalityOptions, designationOptions } =
     externalFields ?? {};
 
-  const { searchType, search, labels, errors, setSearchParams, setSearchType } =
+  const { isApiLoaded, searchType, search, labels, errors, setSearchParams, setSearchType } =
     useContext(FacilitySearchContext);
 
   const {
@@ -30,69 +30,114 @@ const FacilitySearchFilters = (props: FacilitySearchProps) => {
     designationLabel,
   } = labels ?? {};
 
+  const isZipCitySearch = searchType === FacilitySearchType.ZIPCITY;
+  const isStateSearch = searchType === FacilitySearchType.STATE;
+  const isCountrySearch = searchType === FacilitySearchType.COUNTRY;
+  const isFacilitySearch = searchType === FacilitySearchType.FACILITY;
+
   useEffect(() => {
     // Set default search params
-    if (searchType === FacilitySearchType.STATE) {
+    if (isZipCitySearch) {
+      setSearchParams({ distance: milesOptions?.[0]?.value });
+    } else if (isStateSearch) {
       setSearchParams({ state: stateOptions?.[0]?.value });
-    } else if (searchType === FacilitySearchType.COUNTRY) {
+    } else if (isCountrySearch) {
       setSearchParams({ country: countryOptions?.[0]?.value });
     }
-  }, [searchType]);
+  }, [
+    isZipCitySearch,
+    isStateSearch,
+    isCountrySearch,
+    milesOptions,
+    stateOptions,
+    countryOptions,
+    setSearchParams,
+  ]);
+
+  const autocompleteInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isApiLoaded && searchType && autocompleteInputRef?.current) {
+      const autoComplete = new window.google.maps.places.Autocomplete(
+        autocompleteInputRef?.current
+      );
+
+      autoComplete.addListener('place_changed', () => {
+        const place = autoComplete.getPlace();
+
+        if (!place?.geometry || !place?.geometry.location) {
+          // User entered the name of a Place that was not suggested and
+          // pressed the Enter key, or the Place Details request failed.
+          setSearchParams((prev) => ({ ...prev, lat: null, lng: null }));
+        }
+
+        if (place?.geometry?.viewport || place?.geometry?.location) {
+          const location = place.geometry.location;
+          setSearchParams((prev) => ({ ...prev, lat: location?.lat(), lng: location?.lng() }));
+        }
+      });
+    }
+  }, [isApiLoaded, autocompleteInputRef, searchType, setSearchParams]);
 
   return (
     <div data-ref="facility-search-filters">
-      <Flex gap="5" asChild direction={{ initial: 'column', md: 'row' }}>
+      <Flex gap="5" asChild direction={{ initial: 'column' }} className="md:flex-row">
         <fieldset className="mb-8 md:mb-12">
-          <legend className="title-c mb-6">
-            <Text field={searchByLabel} />
-          </legend>
+          <legend className="title-c mb-6">{searchByLabel}</legend>
+
           <Radio
             name="searchBy"
-            value={FacilitySearchType.ZIP}
+            value={FacilitySearchType.ZIPCITY}
             defaultChecked
-            label={zipCityLabel?.value}
+            label={zipCityLabel}
             onChange={(e) => setSearchType(e.target.value)}
           />
+
           <Radio
             name="searchBy"
             value={FacilitySearchType.STATE}
-            label={stateTerritoryLabel?.value}
+            label={stateTerritoryLabel}
             onChange={(e) => setSearchType(e.target.value)}
           />
+
           <Radio
             name="searchBy"
             value={FacilitySearchType.COUNTRY}
-            label={countryLabel?.value}
+            label={countryLabel}
             onChange={(e) => setSearchType(e.target.value)}
           />
+
           <Radio
             name="searchBy"
             value={FacilitySearchType.FACILITY}
-            label={facilityNameLabel?.value}
+            label={facilityNameLabel}
             onChange={(e) => setSearchType(e.target.value)}
           />
         </fieldset>
       </Flex>
 
       <Flex
-        className="gap-6 md:items-stretch md:gap-[30px]"
-        direction={{ initial: 'column', md: 'row' }}
+        direction={{ initial: 'column' }}
+        className="gap-6 md:flex-row md:items-stretch md:gap-[30px]"
       >
-        {searchType === FacilitySearchType.ZIP ? (
-          <div className="relative basis-1/4">
-            <Input label={zipCityLabel?.value} className="w-full" />
-            {errors['zip'] && (
-              <span className="absolute mt-1 text-[12px] text-red-100">{errors['zip']}</span>
+        {isZipCitySearch ? (
+          <div className="relative grow-0 basis-[calc(25%-30px)] md:max-w-[240px]">
+            <Input
+              ref={autocompleteInputRef}
+              label={zipCityLabel}
+              className="w-full"
+              onChange={() => setSearchParams((prev) => ({ ...prev, lat: null, lng: null }))}
+            />
+            {errors['zipCity'] && (
+              <span className="absolute mt-1 text-[12px] text-red-100">{errors['zipCity']}</span>
             )}
           </div>
-        ) : searchType === FacilitySearchType.FACILITY ? (
-          <div className="relative basis-1/4">
+        ) : isFacilitySearch ? (
+          <div className="relative grow-0 basis-[calc(25%-30px)] md:max-w-[240px]">
             <Input
-              label={facilityNameLabel?.value}
+              label={facilityNameLabel}
               className="w-full"
-              onChange={(e) =>
-                setSearchParams((prev: any) => ({ ...prev, facility: e?.target?.value }))
-              }
+              onChange={(e) => setSearchParams((prev) => ({ ...prev, facility: e?.target?.value }))}
             />
             {errors['facility'] && (
               <span className="absolute mt-1 text-[12px] text-red-100">{errors['facility']}</span>
@@ -100,64 +145,71 @@ const FacilitySearchFilters = (props: FacilitySearchProps) => {
           </div>
         ) : (
           <Select
-            className="w-full basis-1/4"
+            className="w-full grow-0 basis-[calc(25%-30px)] md:max-w-[240px]"
             placeholder="Select"
-            label={
-              searchType === FacilitySearchType.STATE
-                ? stateTerritoryLabel?.value
-                : countryLabel?.value
-            }
+            label={isStateSearch ? stateTerritoryLabel : countryLabel}
             defaultSelectedItem={
-              searchType === FacilitySearchType.STATE
+              isStateSearch
                 ? ({
-                    value: stateOptions?.[0]?.value,
-                    label: stateOptions?.[0]?.name,
+                    value: stateOptions?.sort((a, b) => a.name.localeCompare(b.name))?.[0]?.value,
+                    label: stateOptions?.sort((a, b) => a.name.localeCompare(b.name))?.[0]?.name,
                   } as SelectItem)
                 : ({
-                    value: countryOptions?.[0]?.value,
-                    label: countryOptions?.[0]?.name,
+                    value: countryOptions?.sort((a, b) => a.name.localeCompare(b.name))?.[0]?.value,
+                    label: countryOptions?.sort((a, b) => a.name.localeCompare(b.name))?.[0]?.name,
                   } as SelectItem)
             }
             items={
-              (searchType === FacilitySearchType.STATE ? stateOptions : countryOptions)
+              (isStateSearch ? stateOptions : countryOptions)
                 ?.sort((a, b) => a.name.localeCompare(b.name))
                 .map((r) => ({ value: r.value, label: r.name })) ?? []
             }
             onChange={(v) =>
-              setSearchParams((prev: any) => ({
+              setSearchParams((prev) => ({
                 ...prev,
-                [searchType === FacilitySearchType.STATE ? 'state' : 'country']: v?.value,
+                [isStateSearch ? 'state' : 'country']: v?.value,
               }))
             }
           />
         )}
+
         <Select
-          className="w-full basis-1/4"
+          className="w-full grow-0 basis-[calc(25%-30px)] md:max-w-[240px]"
           placeholder="Select"
-          label={withinLabel?.value}
-          disabled={searchType !== FacilitySearchType.ZIP}
+          label={withinLabel}
+          disabled={!isZipCitySearch}
           items={milesOptions?.map((r) => ({ value: r.value, label: r.name })) ?? []}
+          onChange={(v) => setSearchParams((prev) => ({ ...prev, distance: v?.value }))}
+          defaultSelectedItem={
+            {
+              value: milesOptions?.find((v) => v?.value === '25')?.value,
+              label: milesOptions?.find((v) => v?.value === '25')?.name,
+            } as SelectItem
+          }
         />
+
         <Select
-          className="w-full basis-1/4"
+          className="w-full grow-0 basis-[calc(25%-30px)] md:max-w-[240px]"
           placeholder="Select"
-          label={modalityLabel?.value}
+          label={modalityLabel}
           items={modalityOptions?.map((r) => ({ value: r.value, label: r.name })) ?? []}
-          onChange={(v) => setSearchParams((prev: any) => ({ ...prev, modality: v?.value }))}
+          onChange={(v) => setSearchParams((prev) => ({ ...prev, modality: v?.value }))}
         />
+
         <Select
-          className="w-full basis-1/4"
+          className="w-full grow-0 basis-[calc(25%-30px)] md:max-w-[240px]"
           placeholder="Select"
-          label={designationLabel?.value}
+          label={designationLabel}
           items={designationOptions?.map((r) => ({ value: r.value, label: r.name })) ?? []}
-          onChange={(v) => setSearchParams((prev: any) => ({ ...prev, designation: v?.value }))}
+          onChange={(v) => setSearchParams((prev) => ({ ...prev, designation: v?.value }))}
         />
+
         <button
           type="button"
           className="button mt-2 px-5 py-4 !font-medium md:mt-8"
           onClick={search}
         >
-          <Text field={searchButtonLabel} />
+          {searchButtonLabel}
         </button>
       </Flex>
     </div>
@@ -165,4 +217,3 @@ const FacilitySearchFilters = (props: FacilitySearchProps) => {
 };
 
 export default FacilitySearchFilters;
-

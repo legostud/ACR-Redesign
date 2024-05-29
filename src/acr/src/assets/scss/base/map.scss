@@ -1,0 +1,25 @@
+// Google Map Overrides
+
+.gm-style-iw-a {
+  margin-top: -50px;
+}
+
+.gm-style-iw {
+  overflow: hidden !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  max-width: 230px !important;
+  max-height: 250px !important;
+}
+
+.gm-style-iw-chr {
+  display: none;
+}
+
+.gm-style-iw-d {
+  max-height: 100% !important;
+  overflow: hidden !important;
+  overflow-y: overlay !important;
+}
+

@@ -1,4 +1,4 @@
-import { ComponentRendering, Field } from '@sitecore-jss/sitecore-jss-nextjs';
+import { ComponentRendering } from '@sitecore-jss/sitecore-jss-nextjs';
 import { ComponentProps } from 'lib/component-props';
 import { ReferenceField } from 'src/types/ReferenceField.props';
 import { TestProps } from 'src/types/Test.props';
@@ -32,19 +32,24 @@ export type FacilityEnumeration = {
 
 export type FacilitySearchLabels = {
   labels?: {
-    searchByLabel: Field<string>;
-    zipCityLabel: Field<string>;
-    stateTerritoryLabel: Field<string>;
-    countryLabel: Field<string>;
-    facilityNameLabel: Field<string>;
-    withinLabel: Field<string>;
-    modalityLabel: Field<string>;
-    designationLabel: Field<string>;
-    resultsFoundLabel: Field<string>;
-    noResultsFoundLabel: Field<string>;
-    searchButtonLabel: Field<string>;
-    previousLabel: Field<string>;
-    nextLabel: Field<string>;
+    searchByLabel: string;
+    zipCityLabel: string;
+    zipCityErrorLabel: string;
+    stateTerritoryLabel: string;
+    countryLabel: string;
+    facilityNameLabel: string;
+    facilityErrorLabel: string;
+    withinLabel: string;
+    modalityLabel: string;
+    designationLabel: string;
+    resultsFoundLabel: string;
+    searchButtonLabel: string;
+    noResultsFoundLabel: string;
+    accreditedLabel: string;
+    inProgressLabel: string;
+    modalitiesOfferedLabel: string;
+    viewMapLabel: string;
+    getDirectionsLabel: string;
   };
 };
 

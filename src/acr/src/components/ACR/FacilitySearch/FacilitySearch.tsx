@@ -1,18 +1,23 @@
 import { useContext } from 'react';
 
 import { FacilitySearchProps } from 'components/ACR/FacilitySearch/FacilitySearch.props';
-
-import SearchResults from './FacilitySearchResults';
-import PaginationBase from '../Pagination/PaginationBase';
-import SearchFilters from './FacilitySearchFilters';
 import { FacilitySearchContext } from './FaciltySearch.context';
 
+import SearchResults from './FacilitySearchResults';
+import SearchMap from './FacilitySearchMap';
+import SearchFilters from './FacilitySearchFilters';
+import PaginationBase from '../Pagination/PaginationBase';
+import LoadingWrapper from '../LoadingWrapper/LoadingWrapper';
+
 const FacilitySearch = (props: FacilitySearchProps): JSX.Element => {
-  const { searchResults, setPageData } = useContext(FacilitySearchContext);
+  const { isLoading, searchResults, setPageData } = useContext(FacilitySearchContext);
 
   return (
     <>
-      <SearchFilters {...props} />
+      <LoadingWrapper loading={isLoading}>
+        <SearchFilters {...props} />
+        <SearchMap />
+      </LoadingWrapper>
       <SearchResults totalResults={searchResults?.length} />
       <PaginationBase items={searchResults} setPageItems={setPageData} />
     </>

@@ -7,23 +7,6 @@ export const defaultMockData: FacilitySearchProps = {
     componentName: 'FacilitySearch',
     dataSource: '/',
   },
-  labels: {
-    searchByLabel: { value: 'Search by:' },
-    zipCityLabel: { value: 'Zip / City' },
-    stateTerritoryLabel: { value: 'State/Territory' },
-    countryLabel: { value: 'Country' },
-    facilityNameLabel: { value: 'Facility Name' },
-    withinLabel: { value: 'Within' },
-    modalityLabel: { value: 'Modality' },
-    designationLabel: { value: 'Designation' },
-    resultsFoundLabel: { value: 'results found.' },
-    searchButtonLabel: { value: 'Search' },
-    previousLabel: { value: 'Prev' },
-    nextLabel: { value: 'Next' },
-    noResultsFoundLabel: {
-      value: 'Please try widening your search criteria.',
-    },
-  },
   fields: {
     searchOptions: [
       {

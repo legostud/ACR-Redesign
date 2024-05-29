@@ -67,7 +67,7 @@ const config: Config = {
     screens: {
       sm: '440px',
       md: '800px',
-      lg: '1440px',
+      lg: '1200px',
       xl: '1800px',
     },
     extend: {

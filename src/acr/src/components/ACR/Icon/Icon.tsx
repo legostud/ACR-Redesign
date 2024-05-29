@@ -6,6 +6,7 @@ const iconMap: { [key: string]: string } = {
   [IconName.CHEVRON_RIGHT]: 'ChevronRightIcon',
   [IconName.CHEVRON_LEFT]: 'ChevronLeftIcon',
   [IconName.CHEVRON_DOWN]: 'ChevronDownIcon',
+  [IconName.CLOSE]: 'CloseIcon',
   [IconName.DOWNLOAD]: 'DownloadIcon',
   [IconName.EXTERNAL]: 'ExternalIcon',
   [IconName.RIGHT_ARROW]: 'RightArrowIcon',

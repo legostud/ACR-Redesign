@@ -24,7 +24,7 @@ const usePagination = (items: any[]) => {
     const pageIndex = currentPage - 1;
     const start = pageIndex * pageLimit;
     const end = start + pageLimit;
-    console.log('items', items);
+
     return items.slice(start, end);
   };
 

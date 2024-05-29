@@ -1,15 +1,14 @@
-import { Text as RxText } from '@radix-ui/themes';
 import { useContext } from 'react';
 import { FacilitySearchContext } from './FaciltySearch.context';
-import { Text } from '@sitecore-jss/sitecore-jss-react';
 
+import { Text } from '@radix-ui/themes';
 import FacilitySearchResult from './FacilitySearchResult';
 
 type FacilitySearchResultsProps = {
   totalResults: number;
 };
 
-const FacilitySearchResults = (props: FacilitySearchResultsProps) => {
+const FacilitySearchResults = (props: FacilitySearchResultsProps): JSX.Element => {
   const { totalResults } = props;
 
   const { pageData, labels } = useContext(FacilitySearchContext);
@@ -19,18 +18,18 @@ const FacilitySearchResults = (props: FacilitySearchResultsProps) => {
   const resultsString =
     totalResults === 0 ? (
       <>
-        <Text field={resultsFoundLabel} /> <Text field={noResultsFoundLabel} />
+        {resultsFoundLabel}. {noResultsFoundLabel}
       </>
     ) : (
-      <>{totalResults === 1 ? 'result' : 'results'} found</>
+      <>{totalResults === 1 ? 'result found' : resultsFoundLabel}</>
     );
 
   return (
     <div data-ref="facility-search-results">
-      <RxText className="mb-4 mt-12 text-[24px] font-medium md:mb-6" as="p">
+      <Text className="mb-4 mt-12 text-[24px] font-medium md:mb-6" as="p">
         <strong>{totalResults}</strong> {resultsString}
-      </RxText>
-      {pageData?.map((r, index) => <FacilitySearchResult key={index} result={r} />)}
+      </Text>
+      {pageData?.map((r, index) => <FacilitySearchResult key={index} result={r} index={index} />)}
     </div>
   );
 };
