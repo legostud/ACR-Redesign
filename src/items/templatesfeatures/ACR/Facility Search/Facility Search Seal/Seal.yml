@@ -1,14 +1,8 @@
 ﻿---
-ID: "12e6d7ee-9e14-4b64-a866-c89446aafbbf"
-Parent: "9a734241-cc62-4ee6-b447-6bd7a5a8eebb"
-Template: "9a734241-cc62-4ee6-b447-6bd7a5a8eebb"
-Path: /sitecore/templates/Feature/ACR/Facility Search/Facility Search Folder/__Standard Values
-SharedFields:
-- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
-  Hint: __Masters
-  Value: |
-    {123999C4-AAE5-4CD5-A6A5-3E096EDC808A}
-    {84812F8C-5465-4BE0-991E-57C0AF0704EA}
+ID: "8887c05a-7389-4a8d-9229-417f5c7480a5"
+Parent: "fbc36d10-ab8d-4173-936d-e1b875638062"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Feature/ACR/Facility Search/Facility Search Seal/Seal
 Languages:
 - Language: en
   Versions:
@@ -16,7 +10,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20240521T174856Z
+      Value: 20240530T195841Z
     - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
       Hint: __Owner
       Value: |
@@ -27,11 +21,11 @@ Languages:
         sitecore\minyie.diaz@velir.com
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "81e40385-fb06-4c27-8350-ceb180d9b4d4"
+      Value: "144a3b02-4bdb-464c-947d-15b88bea1b7b"
     - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
       Hint: __Updated by
       Value: |
         sitecore\minyie.diaz@velir.com
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20240530T195453Z
+      Value: 20240530T201230Z

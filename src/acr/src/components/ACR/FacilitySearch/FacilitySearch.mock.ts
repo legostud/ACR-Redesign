@@ -318,5 +318,20 @@ export const defaultMockData: FacilitySearchProps = {
       { value: 'United Arab Emirates', name: 'United Arab Emirates' },
       { value: 'United Kingdom', name: 'United Kingdom' },
     ],
+    seals: [
+      {
+        code: { value: 'BISCOE' },
+        sealImage: {
+          jsonValue: {
+            value: {
+              src: '',
+              alt: 'Blackberry',
+              width: '558',
+              height: '952',
+            },
+          },
+        },
+      },
+    ],
   },
 };

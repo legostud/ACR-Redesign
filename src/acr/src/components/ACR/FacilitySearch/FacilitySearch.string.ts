@@ -35,3 +35,38 @@ export const getStateCountryQuery = (itemId: string, language?: string): string 
   query = query.replace('%LANGUAGE%', language);
   return query;
 };
+
+export const getSealsQuery = (language?: string): string => {
+  let query = `query {
+    search(where:{
+      AND:[{
+            name: "_path",
+            value: "{3A39C865-A441-4E31-B16C-C4CB7D3C44DF}",
+            operator: CONTAINS
+          },
+         {
+            name: "_templates",
+            value: "{FBC36D10-AB8D-4173-936D-E1B875638062}",
+            operator: CONTAINS
+          },
+          { name: "_language",  value: "%LANGUAGE%" }]
+    }, first : 100){
+      total
+       pageInfo {
+        endCursor
+        hasNext
+      }
+      results {
+        ... on FacilitySearchSeal {
+          code {value}
+          sealImage { jsonValue}
+        }
+      }
+    }
+  }`;
+  if (!language) {
+    language = 'en';
+  }
+  query = query.replace('%LANGUAGE%', language);
+  return query;
+};

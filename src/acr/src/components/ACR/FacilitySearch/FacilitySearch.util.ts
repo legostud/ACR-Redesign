@@ -3,11 +3,12 @@ import {
   FacilityEnumeration,
   FacilitySearchData,
   FacilitySearchDataModel,
+  FacilitySearchSealGraphQL,
   FacilitySearchStateEnumGraphQL,
 } from 'components/ACR/FacilitySearch/FacilitySearch.props';
 import { ACREnumeration } from 'src/types/enum.props';
 import { GqlResult, getACRGraphQlClient } from 'src/utils/acrGraphQlClient';
-import { getStateCountryQuery } from './FacilitySearch.string';
+import { getSealsQuery, getStateCountryQuery } from './FacilitySearch.string';
 
 export type StateRequest = {
   language?: string;
@@ -42,6 +43,10 @@ export const getStaticPropsForFacilitySearch = async (
   const countryResult =
     await getACRGraphQlClient().request<GqlResult<FacilitySearchStateEnumGraphQL[]>>(countryQuery);
 
+  const sealQuery = getSealsQuery(request.language);
+  const sealResult =
+    await getACRGraphQlClient().request<GqlResult<FacilitySearchSealGraphQL[]>>(sealQuery);
+
   const model: FacilitySearchData = {
     externalFields: {
       searchOptions: data?.fields?.searchOptions?.map(transformToFacilityEnumeration) ?? [],
@@ -51,6 +56,7 @@ export const getStaticPropsForFacilitySearch = async (
       modalityOptions: data?.fields?.modalityOptions?.map(transformToFacilityEnumeration) ?? [],
       stateOptions: result?.search?.results?.map(transformToFacilityEnumeration) ?? [],
       countryOptions: countryResult?.search?.results?.map(transformToFacilityEnumeration) ?? [],
+      seals: sealResult?.search?.results ?? [],
     },
   };
 

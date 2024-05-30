@@ -1,14 +1,18 @@
 ﻿---
-ID: "12e6d7ee-9e14-4b64-a866-c89446aafbbf"
-Parent: "9a734241-cc62-4ee6-b447-6bd7a5a8eebb"
-Template: "9a734241-cc62-4ee6-b447-6bd7a5a8eebb"
-Path: /sitecore/templates/Feature/ACR/Facility Search/Facility Search Folder/__Standard Values
+ID: "fbc36d10-ab8d-4173-936d-e1b875638062"
+Parent: "5edd64d1-4dc8-41c9-8212-b71f852c940f"
+Template: "ab86861a-6030-46c5-b394-e8f99e8b87db"
+Path: /sitecore/templates/Feature/ACR/Facility Search/Facility Search Seal
 SharedFields:
-- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
-  Hint: __Masters
-  Value: |
-    {123999C4-AAE5-4CD5-A6A5-3E096EDC808A}
-    {84812F8C-5465-4BE0-991E-57C0AF0704EA}
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: /~/icon/office/32x32/wax_seal.png
+- ID: "12c33f3f-86c5-43a5-aeb4-5598cec45116"
+  Hint: __Base template
+  Value: "{1930BBEB-7805-471A-A3BE-4858AC7CF696}"
+- ID: "f7d48a55-2158-4f02-9356-756654404f73"
+  Hint: __Standard values
+  Value: "{6B65C802-EB79-493F-BE8E-BEFF6B40B899}"
 Languages:
 - Language: en
   Versions:
@@ -16,7 +20,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20240521T174856Z
+      Value: 20240530T195052Z
     - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
       Hint: __Owner
       Value: |
@@ -27,11 +31,11 @@ Languages:
         sitecore\minyie.diaz@velir.com
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "81e40385-fb06-4c27-8350-ceb180d9b4d4"
+      Value: "1ff3394e-81ce-4e15-90cf-7e9044f36bfc"
     - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
       Hint: __Updated by
       Value: |
         sitecore\minyie.diaz@velir.com
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20240530T195453Z
+      Value: 20240530T201244Z
