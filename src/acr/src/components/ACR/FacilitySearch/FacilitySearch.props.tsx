@@ -1,6 +1,6 @@
 import { ComponentRendering } from '@sitecore-jss/sitecore-jss-nextjs';
 import { ComponentProps } from 'lib/component-props';
-import { GqlFieldString, GqlImage } from 'src/types/GraphQL.props';
+import { GqlImage } from 'src/types/GraphQL.props';
 import { ReferenceField } from 'src/types/ReferenceField.props';
 import { TestProps } from 'src/types/Test.props';
 import { ACREnumeration } from 'src/types/enum.props';
