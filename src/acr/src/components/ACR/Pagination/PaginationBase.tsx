@@ -33,7 +33,7 @@ const PaginationBase = (props: PaginationBaseProps): JSX.Element => {
 
   useEffect(() => {
     setPageItems(pageData);
-  }, [currentPage, pageLimit, items]);
+  }, [currentPage, pageLimit, items, pageData, setPageItems]);
 
   if (!items || items?.length === 0) {
     return <></>;

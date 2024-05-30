@@ -20,4 +20,3 @@ export const FacilitySearchDictionaryKeys = {
   FACILITY_SEARCH_VIEW_MAP: 'View on Map',
   FACILITY_SEARCH_GET_DIRECTIONS: 'Get Directions',
 };
-

@@ -6,6 +6,7 @@ import { ButtonStyle } from 'src/enumerations/ButtonStyle.enum';
 import LinkBase from '../Link/LinkBase';
 
 import cn from 'classnames';
+import { findSum } from './FacilitySearch.util';
 
 export type FacilitySearchResultType = {
   accreditAcronym: string;
@@ -38,6 +39,37 @@ const FacilitySearchResult = (props: FacilitySearchResultProps): JSX.Element => 
   const isInProgress = result?.accStatus === 'U';
 
   const { labels, setActiveLocation } = useContext(FacilitySearchContext);
+
+  const getSealImages = () => {
+    const images = [];
+
+    if (result?.mrpcFlage === '1') {
+      images.push(<a href="#mrpc">MRPC</a>);
+    }
+
+    const mamFlag = [1, 2, 4, 8];
+
+    const mamFlagIndices = findSum(mamFlag, Number(result?.mamFlag));
+
+    mamFlagIndices?.forEach((flag) => {
+      switch (flag) {
+        case 1:
+          images.push(<a href="#biocoe">BIOCOE</a>);
+          break;
+        case 2:
+          images.push(<a href="#DICOE">DICOE</a>);
+          break;
+        case 4:
+          images.push(<a href="#imagegently">ImageGently</a>);
+          break;
+        case 8:
+          images.push(<a href="#lcsd">LCSD</a>);
+          break;
+      }
+    });
+
+    return images;
+  };
 
   return (
     <Grid
@@ -75,14 +107,7 @@ const FacilitySearchResult = (props: FacilitySearchResultProps): JSX.Element => 
         <p>{result?.phone}</p>
       </div>
       <div className="col-start-1 md:col-start-2 lg:col-start-4">
-        {/* TODO - Get Seals */}
-        <a href="/">
-          {result?.mamFlag !== '0'
-            ? result?.mamFlag
-            : result?.mrpcFlage === '1'
-              ? result?.mrpcFlage
-              : ''}
-        </a>
+        {getSealImages()?.map((image) => image)}
       </div>
       <div className="col-start-1 flex justify-between gap-4 md:flex-col md:justify-start lg:col-start-5">
         <button

@@ -36,4 +36,3 @@ const LoadingWrapper = (props: LoadingWrapperProps): JSX.Element => {
 };
 
 export default LoadingWrapper;
-

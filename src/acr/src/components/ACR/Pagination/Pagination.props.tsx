@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TestProps } from 'types/Test.props';
 import { StyleProps } from 'types/Style.props';
 

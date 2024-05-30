@@ -45,7 +45,7 @@ const Dropdown = (props: DropdropProps) => {
     reset,
   } = selectState;
 
-  useEffect(() => reset(), [label]);
+  useEffect(() => reset(), [label, reset]);
 
   return (
     <div className={twMerge('flex flex-col gap-2 text-indigo-100', className)}>
