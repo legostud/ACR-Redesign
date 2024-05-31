@@ -1,15 +1,14 @@
+import { useEffect } from 'react';
 import { PaginationBaseProps } from './Pagination.props';
-import { Flex, Text } from '@radix-ui/themes';
-import { paginationRange, isFirstPage, isLastPage } from './Pagination.util';
 
+import { paginationRange, isFirstPage, isLastPage } from './Pagination.util';
+import usePagination from 'src/hooks/usePagination';
+
+import { Flex, Text } from '@radix-ui/themes';
 import Icon from 'components/ACR/Icon/Icon';
 import { IconName } from 'src/enumerations/Icon.enum';
 
 import cn from 'classnames';
-import usePagination from 'src/hooks/usePagination';
-import { useEffect } from 'react';
-
-const defaultProps = {};
 
 const RESULTS_PER_PAGE = [10, 20, 30];
 
@@ -33,7 +32,8 @@ const PaginationBase = (props: PaginationBaseProps): JSX.Element => {
 
   useEffect(() => {
     setPageItems(pageData);
-  }, [currentPage, pageLimit, items, pageData, setPageItems]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, pageLimit, items]);
 
   if (!items || items?.length === 0) {
     return <></>;
@@ -103,7 +103,5 @@ const PaginationBase = (props: PaginationBaseProps): JSX.Element => {
     </Flex>
   );
 };
-
-PaginationBase.defaultProps = defaultProps;
 
 export default PaginationBase;

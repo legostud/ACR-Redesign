@@ -320,11 +320,63 @@ export const defaultMockData: FacilitySearchProps = {
     ],
     seals: [
       {
-        code: { value: 'BISCOE' },
+        code: { value: 'BIOCOE' },
         sealImage: {
           jsonValue: {
             value: {
-              src: '',
+              src: 'https://picsum.photos/1290/726',
+              alt: 'Blackberry',
+              width: '558',
+              height: '952',
+            },
+          },
+        },
+      },
+      {
+        code: { value: 'DICOE' },
+        sealImage: {
+          jsonValue: {
+            value: {
+              src: 'https://picsum.photos/1290/726',
+              alt: 'Blackberry',
+              width: '558',
+              height: '952',
+            },
+          },
+        },
+      },
+      {
+        code: { value: 'ImageGently' },
+        sealImage: {
+          jsonValue: {
+            value: {
+              src: 'https://picsum.photos/1290/726',
+              alt: 'Blackberry',
+              width: '558',
+              height: '952',
+            },
+          },
+        },
+      },
+      {
+        code: { value: 'LSCD' },
+        sealImage: {
+          jsonValue: {
+            value: {
+              src: 'https://picsum.photos/1290/726',
+              alt: 'Blackberry',
+              width: '558',
+              height: '952',
+            },
+          },
+        },
+      },
+      {
+        code: { value: 'MRPC' },
+        sealImage: {
+          jsonValue: {
+            value: {
+              src: 'https://picsum.photos/1290/726',
               alt: 'Blackberry',
               width: '558',
               height: '952',

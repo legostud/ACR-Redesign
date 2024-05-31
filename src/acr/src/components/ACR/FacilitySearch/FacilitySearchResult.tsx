@@ -1,12 +1,16 @@
 import { useContext } from 'react';
 import { FacilitySearchContext } from './FaciltySearch.context';
-import { Grid, Text } from '@radix-ui/themes';
+import { FacilitySearchSealGraphQL } from './FacilitySearch.props';
 
+import { findSum } from './FacilitySearch.util';
+
+import { Grid, Text } from '@radix-ui/themes';
 import { ButtonStyle } from 'src/enumerations/ButtonStyle.enum';
 import LinkBase from '../Link/LinkBase';
 
+import * as constants from './FacilitySearch.dictionary';
+
 import cn from 'classnames';
-import { findSum } from './FacilitySearch.util';
 
 export type FacilitySearchResultType = {
   accreditAcronym: string;
@@ -32,40 +36,66 @@ type FacilitySearchResultProps = {
   index: number;
 };
 
+type FacilitySearchSeal = {
+  id: string;
+  imageSrc: string;
+};
+
 const FacilitySearchResult = (props: FacilitySearchResultProps): JSX.Element => {
   const { result, index } = props;
 
   const isAccredited = result?.accStatus === 'A';
   const isInProgress = result?.accStatus === 'U';
 
-  const { labels, setActiveLocation } = useContext(FacilitySearchContext);
+  const { labels, seals, setActiveLocation } = useContext(FacilitySearchContext);
 
-  const getSealImages = () => {
-    const images = [];
+  const getSealImages = (): FacilitySearchSeal[] => {
+    const images: FacilitySearchSeal[] = [];
+
+    const getSeal = (id: string): FacilitySearchSealGraphQL | undefined => {
+      return seals?.find((seal) => seal?.code?.value === id);
+    };
 
     if (result?.mrpcFlage === '1') {
-      images.push(<a href="#mrpc">MRPC</a>);
+      const mrpcSeal = getSeal(constants.MRPC);
+
+      if (mrpcSeal) {
+        images.push({
+          id: mrpcSeal?.code?.value?.toLowerCase(),
+          imageSrc: mrpcSeal?.sealImage?.jsonValue?.value?.src ?? '',
+        });
+      }
     }
 
-    const mamFlag = [1, 2, 4, 8];
+    // API returns a singular bit value from which we would need to calculate the breakdown to
+    // determine which seals to render
 
-    const mamFlagIndices = findSum(mamFlag, Number(result?.mamFlag));
+    const mamFlagValues = [1, 2, 4, 8];
+
+    const mamFlagIndices = findSum(mamFlagValues, Number(result?.mamFlag));
 
     mamFlagIndices?.forEach((flag) => {
+      let mamSeal;
+
       switch (flag) {
         case 1:
-          images.push(<a href="#biocoe">BIOCOE</a>);
+          mamSeal = getSeal(constants.BIOCOE);
           break;
         case 2:
-          images.push(<a href="#DICOE">DICOE</a>);
+          mamSeal = getSeal(constants.DICOE);
           break;
         case 4:
-          images.push(<a href="#imagegently">ImageGently</a>);
+          mamSeal = getSeal(constants.IMAGE_GENTLY);
           break;
         case 8:
-          images.push(<a href="#lcsd">LCSD</a>);
+          mamSeal = getSeal(constants.LCSD);
           break;
       }
+
+      images.push({
+        id: mamSeal?.code?.value?.toLowerCase() ?? '',
+        imageSrc: mamSeal?.sealImage?.jsonValue?.value?.src ?? '',
+      });
     });
 
     return images;
@@ -106,8 +136,12 @@ const FacilitySearchResult = (props: FacilitySearchResultProps): JSX.Element => 
         </p>
         <p>{result?.phone}</p>
       </div>
-      <div className="col-start-1 md:col-start-2 lg:col-start-4">
-        {getSealImages()?.map((image) => image)}
+      <div className="col-start-1 flex flex-wrap gap-[10px] md:col-start-2 md:justify-center lg:col-start-4">
+        {getSealImages()?.map((image, index) => (
+          <a key={index} href={`#${image.id}`} className="max-w-[75px]">
+            <img src={image.imageSrc} alt="" />
+          </a>
+        ))}
       </div>
       <div className="col-start-1 flex justify-between gap-4 md:flex-col md:justify-start lg:col-start-5">
         <button

@@ -20,3 +20,9 @@ export const FacilitySearchDictionaryKeys = {
   FACILITY_SEARCH_VIEW_MAP: 'View on Map',
   FACILITY_SEARCH_GET_DIRECTIONS: 'Get Directions',
 };
+
+export const MRPC = 'MRPC';
+export const BIOCOE = 'BIOCOE';
+export const DICOE = 'DICOE';
+export const IMAGE_GENTLY = 'ImageGently';
+export const LCSD = 'LCSD';

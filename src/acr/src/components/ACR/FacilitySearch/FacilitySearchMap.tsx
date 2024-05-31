@@ -17,7 +17,7 @@ export type FacilitySearchResultMarker = {
 };
 
 const FacilitySearchMap = (): JSX.Element => {
-  const { isApiLoaded, searchResults, activeLocation } = useContext(FacilitySearchContext);
+  const { labels, isApiLoaded, searchResults, activeLocation } = useContext(FacilitySearchContext);
   const [isOpen, setIsOpen] = useState(false);
   const [infoWindowData, setInfoWindowData] = useState<FacilitySearchResultMarker | null>(null);
 
@@ -135,7 +135,7 @@ const FacilitySearchMap = (): JSX.Element => {
                         link={{
                           value: {
                             href: `https://www.google.com/maps/dir/?api=1&destination=${infoWindowData?.info?.lat},${infoWindowData?.info?.lng}`,
-                            text: 'Get Directions',
+                            text: labels?.getDirectionsLabel,
                             target: '__blank',
                           },
                         }}

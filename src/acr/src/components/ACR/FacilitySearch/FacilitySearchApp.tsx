@@ -14,7 +14,7 @@ import FacilitySearch from './FacilitySearch';
 /**
  * ACRAR-269 - Facility Search
  * @param props
- * @returns
+ * @returns Wrapper for FacilitySearch component with Context Provider
  */
 const FacilitySearchApp = (props: FacilitySearchProps): JSX.Element => {
   const { testId } = props;

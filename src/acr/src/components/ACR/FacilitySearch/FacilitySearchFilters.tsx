@@ -38,11 +38,11 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
   useEffect(() => {
     // Set default search params
     if (isZipCitySearch) {
-      setSearchParams({ distance: milesOptions?.[0]?.value });
+      setSearchParams({ searchRadius: milesOptions?.[0]?.value });
     } else if (isStateSearch) {
-      setSearchParams({ state: stateOptions?.[0]?.value });
+      setSearchParams({ stateCountry: stateOptions?.[0]?.value });
     } else if (isCountrySearch) {
-      setSearchParams({ country: countryOptions?.[0]?.value });
+      setSearchParams({ stateCountry: countryOptions?.[0]?.value });
     }
   }, [
     isZipCitySearch,
@@ -73,7 +73,14 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
 
         if (place?.geometry?.viewport || place?.geometry?.location) {
           const location = place.geometry.location;
-          setSearchParams((prev) => ({ ...prev, lat: location?.lat(), lng: location?.lng() }));
+
+          if (location?.lat() && location?.lng()) {
+            setSearchParams((prev) => ({
+              ...prev,
+              latitude: `${location?.lat()}`,
+              longitude: `${location?.lng()}`,
+            }));
+          }
         }
       });
     }
@@ -124,6 +131,7 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
           <div className="relative grow-0 basis-[calc(25%-30px)] md:max-w-[240px]">
             <Input
               ref={autocompleteInputRef}
+              name={zipCityLabel}
               label={zipCityLabel}
               className="w-full"
               onChange={() => setSearchParams((prev) => ({ ...prev, lat: null, lng: null }))}
@@ -135,9 +143,12 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
         ) : isFacilitySearch ? (
           <div className="relative grow-0 basis-[calc(25%-30px)] md:max-w-[240px]">
             <Input
+              name={facilityNameLabel}
               label={facilityNameLabel}
               className="w-full"
-              onChange={(e) => setSearchParams((prev) => ({ ...prev, facility: e?.target?.value }))}
+              onChange={(e) =>
+                setSearchParams((prev) => ({ ...prev, facilityName: e?.target?.value }))
+              }
             />
             {errors['facility'] && (
               <span className="absolute mt-1 text-[12px] text-red-100">{errors['facility']}</span>
@@ -167,7 +178,7 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
             onChange={(v) =>
               setSearchParams((prev) => ({
                 ...prev,
-                [isStateSearch ? 'state' : 'country']: v?.value,
+                stateCountry: v?.value,
               }))
             }
           />
@@ -179,11 +190,11 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
           label={withinLabel}
           disabled={!isZipCitySearch}
           items={milesOptions?.map((r) => ({ value: r.value, label: r.name })) ?? []}
-          onChange={(v) => setSearchParams((prev) => ({ ...prev, distance: v?.value }))}
+          onChange={(v) => setSearchParams((prev) => ({ ...prev, searchRadius: v?.value }))}
           defaultSelectedItem={
             {
-              value: milesOptions?.find((v) => v?.value === '25')?.value,
-              label: milesOptions?.find((v) => v?.value === '25')?.name,
+              value: milesOptions?.[0]?.value,
+              label: milesOptions?.[0]?.name,
             } as SelectItem
           }
         />

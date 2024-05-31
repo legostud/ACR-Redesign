@@ -1,6 +1,6 @@
 export enum FacilitySearchType {
-  ZIPCITY = 'zipCity',
+  ZIPCITY = 'location',
   STATE = 'state',
   COUNTRY = 'country',
-  FACILITY = 'faciliity',
+  FACILITY = 'name',
 }

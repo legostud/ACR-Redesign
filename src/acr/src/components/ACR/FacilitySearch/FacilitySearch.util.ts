@@ -63,23 +63,23 @@ export const getStaticPropsForFacilitySearch = async (
   return model;
 };
 
-const powerset = (arr: number[]) => {
-  const ps = [[]] as number[][];
-
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0, len = ps.length; j < len; j++) {
-      ps.push(ps[j].concat(arr[i]));
-    }
-  }
-
-  return ps;
-};
-
-const sum = (arr: number[]) => {
-  return arr.reduce((total, num) => total + num, 0);
-};
-
 export const findSum = (numbers: number[], targetSum: number): number[] => {
+  const powerset = (arr: number[]) => {
+    const ps = [[]] as number[][];
+
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0, len = ps.length; j < len; j++) {
+        ps.push(ps[j].concat(arr[i]));
+      }
+    }
+
+    return ps;
+  };
+
+  const sum = (arr: number[]) => {
+    return arr.reduce((total, num) => total + num, 0);
+  };
+
   const numberSets = powerset(numbers);
 
   for (let i = 0; i < numberSets.length; i++) {
