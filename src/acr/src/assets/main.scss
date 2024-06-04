@@ -12,6 +12,10 @@
 }
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
     p {
       @apply body-sm;

@@ -86,8 +86,16 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
     }
   }, [isApiLoaded, autocompleteInputRef, searchType, setSearchParams]);
 
+  // Error Handling
+  useEffect(() => {
+    Object.keys(errors)?.map((err) => {
+      const errorField = document.querySelector(`#${err}`) as HTMLInputElement;
+      errorField && errorField?.focus();
+    });
+  }, [errors]);
+
   return (
-    <div data-ref="facility-search-filters">
+    <div data-ref="facility-search-filters" id="facility-search-filters" tabIndex={-1}>
       <Flex gap="5" asChild direction={{ initial: 'column' }} className="md:flex-row">
         <fieldset className="mb-8 md:mb-12">
           <legend className="title-c mb-6">{searchByLabel}</legend>
@@ -130,14 +138,24 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
         {isZipCitySearch ? (
           <div className="relative grow-0 basis-[calc(25%-30px)] md:max-w-[240px]">
             <Input
+              id="zipCity"
               ref={autocompleteInputRef}
               name={zipCityLabel}
               label={zipCityLabel}
               className="w-full"
-              onChange={() => setSearchParams((prev) => ({ ...prev, lat: null, lng: null }))}
+              aria-describedby="zipCityErr"
+              onChange={() =>
+                setSearchParams((prev) => ({ ...prev, latitude: null, longitude: null }))
+              }
             />
             {errors['zipCity'] && (
-              <span className="absolute mt-1 text-[12px] text-red-100">{errors['zipCity']}</span>
+              <span
+                id="zipCityErr"
+                aria-live="polite"
+                className="absolute mt-1 text-[12px] text-red-100"
+              >
+                {errors['zipCity']}
+              </span>
             )}
           </div>
         ) : isFacilitySearch ? (
@@ -146,12 +164,19 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
               name={facilityNameLabel}
               label={facilityNameLabel}
               className="w-full"
+              aria-describedby="facilityErr"
               onChange={(e) =>
                 setSearchParams((prev) => ({ ...prev, facilityName: e?.target?.value }))
               }
             />
             {errors['facility'] && (
-              <span className="absolute mt-1 text-[12px] text-red-100">{errors['facility']}</span>
+              <span
+                id="facilityErr"
+                aria-live="polite"
+                className="absolute mt-1 text-[12px] text-red-100"
+              >
+                {errors['facility']}
+              </span>
             )}
           </div>
         ) : (

@@ -136,14 +136,14 @@ const FacilitySearchResult = (props: FacilitySearchResultProps): JSX.Element => 
         </p>
         <p>{result?.phone}</p>
       </div>
-      <div className="col-start-1 flex flex-wrap gap-[10px] md:col-start-2 md:justify-center lg:col-start-4">
+      <div className="col-start-1 flex flex-wrap gap-[10px] md:col-start-2 lg:col-start-4 lg:justify-center">
         {getSealImages()?.map((image, index) => (
-          <a key={index} href={`#${image.id}`} className="max-w-[75px]">
+          <a key={index} href={`#${image.id}`} className="h-max max-w-[75px]">
             <img src={image.imageSrc} alt="" />
           </a>
         ))}
       </div>
-      <div className="col-start-1 flex justify-between gap-4 md:flex-col md:justify-start lg:col-start-5">
+      <div className="col-start-1 flex items-center justify-between gap-4 md:flex-col md:items-start md:justify-start lg:col-start-5 lg:items-center">
         <button
           className="button font-medium"
           onClick={() => setActiveLocation({ index, info: result })}

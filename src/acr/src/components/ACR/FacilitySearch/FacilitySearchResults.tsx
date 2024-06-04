@@ -25,7 +25,13 @@ const FacilitySearchResults = (props: FacilitySearchResultsProps): JSX.Element =
     );
 
   return (
-    <div data-ref="facility-search-results">
+    <div
+      data-ref="facility-search-results"
+      aria-live="polite"
+      aria-atomic="true"
+      id="facility-search-results"
+      tabIndex={-1}
+    >
       <Text className="mb-4 mt-12 text-[24px] font-medium md:mb-6" as="p">
         <strong>{totalResults}</strong> {resultsString}
       </Text>

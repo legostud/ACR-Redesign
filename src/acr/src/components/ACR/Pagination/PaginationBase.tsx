@@ -40,67 +40,64 @@ const PaginationBase = (props: PaginationBaseProps): JSX.Element => {
   }
 
   return (
-    <Flex
-      data-ref="pagination"
-      data-testid={testId}
-      wrap="wrap"
-      justify="center"
-      className="mt-6 gap-[30px] font-medium"
-    >
-      <Flex>
-        <button
-          className="px-[15px] py-2 disabled:text-gray-100"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={isFirstPage(currentPage)}
-          aria-label="Previous page"
-        >
-          <Icon iconName={IconName.CHEVRON_LEFT} className="h-3 w-3" />
-        </button>
-        <Flex asChild align="center" className="gap-[5px]">
-          <ul>
-            {pages.map((pageNumber, index) => {
-              return (
-                <li key={index} className="body-xs">
-                  <button
-                    className={cn('rounded-[4px] px-[15px] py-2 font-medium', {
-                      ['bg-t-primary text-t-btn-text']: currentPage === pageNumber,
-                    })}
-                    onClick={() => changePage(pageNumber)}
-                  >
-                    {pageNumber}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </Flex>
-        <button
-          className="px-[15px] py-2 disabled:text-gray-100"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={isLastPage(items?.length, pageLimit, currentPage)}
-          aria-label="Next page"
-        >
-          <Icon iconName={IconName.CHEVRON_RIGHT} className="h-3 w-3" />
-        </button>
-      </Flex>
-      <Flex align="center" className="gap-[5px] md:ml-auto">
-        <Text as="p" className="px-[5px]">
-          Results Per Page
-        </Text>
-        {RESULTS_PER_PAGE?.map((numPerPage, index) => (
+    <nav data-ref="pagination" data-testid={testId} aria-label="pagination">
+      <Flex wrap="wrap" justify="center" className="mt-6 gap-[30px] font-medium">
+        <Flex>
           <button
-            key={index}
-            className={cn('rounded-[4px] px-[11px] py-2 font-medium', {
-              ['bg-t-primary text-t-btn-text']: numPerPage === pageLimit,
-            })}
-            onClick={() => changePageLimit(numPerPage)}
-            aria-label={`${numPerPage} Results Per Page`}
+            className="px-[15px] py-2 disabled:text-gray-100"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={isFirstPage(currentPage)}
+            aria-label="Previous page"
           >
-            {numPerPage}
+            <Icon iconName={IconName.CHEVRON_LEFT} className="h-3 w-3" />
           </button>
-        ))}
+          <Flex asChild align="center" className="gap-[5px]">
+            <ul>
+              {pages.map((pageNumber, index) => {
+                return (
+                  <li key={index} className="body-xs">
+                    <button
+                      className={cn('rounded-[4px] px-[15px] py-2 font-medium', {
+                        ['bg-t-primary text-t-btn-text']: currentPage === pageNumber,
+                      })}
+                      onClick={() => changePage(pageNumber)}
+                      aria-label={`Page ${pageNumber}`}
+                    >
+                      {pageNumber}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </Flex>
+          <button
+            className="px-[15px] py-2 disabled:text-gray-100"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={isLastPage(items?.length, pageLimit, currentPage)}
+            aria-label="Next page"
+          >
+            <Icon iconName={IconName.CHEVRON_RIGHT} className="h-3 w-3" />
+          </button>
+        </Flex>
+        <Flex align="center" className="gap-[5px] md:ml-auto">
+          <Text as="p" className="px-[5px]">
+            Results Per Page
+          </Text>
+          {RESULTS_PER_PAGE?.map((numPerPage, index) => (
+            <button
+              key={index}
+              className={cn('rounded-[4px] px-[11px] py-2 font-medium', {
+                ['bg-t-primary text-t-btn-text']: numPerPage === pageLimit,
+              })}
+              onClick={() => changePageLimit(numPerPage)}
+              aria-label={`${numPerPage} Results Per Page`}
+            >
+              {numPerPage}
+            </button>
+          ))}
+        </Flex>
       </Flex>
-    </Flex>
+    </nav>
   );
 };
 

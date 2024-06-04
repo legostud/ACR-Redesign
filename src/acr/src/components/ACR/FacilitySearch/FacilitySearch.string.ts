@@ -1,9 +1,9 @@
 export const getStateCountryQuery = (itemId: string, language?: string): string => {
-  let query = `query {
+  const query = `query {
         search(where:{
           AND:[{
                 name: "_path",
-                value: "%ITEMID%",
+                value: "${itemId}",
                 operator: CONTAINS
               },
               {
@@ -11,7 +11,7 @@ export const getStateCountryQuery = (itemId: string, language?: string): string 
                  value: "{D2923FEE-DA4E-49BE-830C-E27764DFA269}",
                  operator: CONTAINS
                },
-              { name: "_language",  value: "%LANGUAGE%" }]
+              { name: "_language",  value: "${language}" }]
         }, first : 100){
           total
            pageInfo {
@@ -31,13 +31,12 @@ export const getStateCountryQuery = (itemId: string, language?: string): string 
   if (!language) {
     language = 'en';
   }
-  query = query.replace('%ITEMID%', itemId);
-  query = query.replace('%LANGUAGE%', language);
+
   return query;
 };
 
 export const getSealsQuery = (language?: string): string => {
-  let query = `query {
+  const query = `query {
     search(where:{
       AND:[{
             name: "_path",
@@ -49,7 +48,7 @@ export const getSealsQuery = (language?: string): string => {
             value: "{FBC36D10-AB8D-4173-936D-E1B875638062}",
             operator: CONTAINS
           },
-          { name: "_language",  value: "%LANGUAGE%" }]
+          { name: "_language",  value: "${language}" }]
     }, first : 100){
       total
        pageInfo {
@@ -67,6 +66,6 @@ export const getSealsQuery = (language?: string): string => {
   if (!language) {
     language = 'en';
   }
-  query = query.replace('%LANGUAGE%', language);
+
   return query;
 };

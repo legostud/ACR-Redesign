@@ -26,13 +26,25 @@ type InputProps = InputsProps & {
 };
 
 const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
-  const { name, type = 'text', label, placeholder, className, slot, onChange, disabled } = props;
+  const {
+    id,
+    name,
+    type = 'text',
+    label,
+    placeholder,
+    className,
+    slot,
+    onChange,
+    disabled,
+    ...rest
+  } = props;
 
   return (
     <label className={twMerge(cn('flex w-fit flex-col gap-2 text-t-body', className))}>
       {label}
       <TextField.Root
         size="3"
+        id={id}
         name={name}
         ref={ref}
         type={type}
@@ -40,6 +52,7 @@ const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>
         placeholder={placeholder}
         disabled={disabled}
         onChange={onChange}
+        {...rest}
         className={twMerge(
           cn(
             'body-sm group h-[56px] bg-white shadow-[inset_0_0_0_1px] shadow-indigo-100 outline-none [&>input]:px-4 [&>input]:indent-0',

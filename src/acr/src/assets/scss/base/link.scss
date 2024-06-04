@@ -3,6 +3,19 @@
     @apply relative no-underline before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-full before:origin-[100%_0] before:scale-x-0 before:bg-t-link-hover before:transition-transform before:duration-[.5s] before:content-[''] hover:before:origin-[0] hover:before:scale-x-100;
   }
 
+  .text-assistive {
+    -webkit-clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    box-sizing: border-box;
+    position: absolute;
+    top: calc(100% + 8px);
+
+    &:focus {
+      -webkit-clip-path: none;
+      clip-path: none;
+      z-index: 999;
+    }
+  }
   .link-no-underline {
     @apply before:hidden;
   }

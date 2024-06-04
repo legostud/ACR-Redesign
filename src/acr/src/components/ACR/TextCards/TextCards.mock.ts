@@ -18,6 +18,7 @@ export const defaultMockData: TextCardsProps = {
             orientation: Orientation.IMAGE_LEFT,
           },
           fields: {
+            anchorId: { value: 'biocoe' },
             image: {
               value: {
                 src: 'https://picsum.photos/125/120',
@@ -40,6 +41,7 @@ export const defaultMockData: TextCardsProps = {
             orientation: Orientation.IMAGE_RIGHT,
           },
           fields: {
+            anchorId: { value: 'dicoe' },
             image: {
               value: {
                 src: 'https://picsum.photos/125/120',
@@ -62,6 +64,7 @@ export const defaultMockData: TextCardsProps = {
             orientation: Orientation.IMAGE_LEFT,
           },
           fields: {
+            anchorId: { value: 'imagegently' },
             description: {
               value:
                 'Image Gently® supporter logo indicates a facility accredited in pediatric CT imaging. Such facilities commit to imaging pediatric patients with appropriate radiation dose.',
@@ -76,6 +79,7 @@ export const defaultMockData: TextCardsProps = {
             orientation: Orientation.IMAGE_RIGHT,
           },
           fields: {
+            anchorId: { value: 'lcsd' },
             image: {
               value: {
                 src: 'https://picsum.photos/125/120',
@@ -98,6 +102,7 @@ export const defaultMockData: TextCardsProps = {
             orientation: Orientation.IMAGE_LEFT,
           },
           fields: {
+            anchorId: { value: 'mrpc' },
             image: {
               value: {
                 src: 'https://picsum.photos/125/120',
