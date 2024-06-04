@@ -144,6 +144,7 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
               label={zipCityLabel}
               className="w-full"
               aria-describedby="zipCityErr"
+              aria-invalid={errors['zipCity'] ? true : false}
               onChange={() =>
                 setSearchParams((prev) => ({ ...prev, latitude: null, longitude: null }))
               }
@@ -165,6 +166,7 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
               label={facilityNameLabel}
               className="w-full"
               aria-describedby="facilityErr"
+              aria-invalid={errors['facility'] ? true : false}
               onChange={(e) =>
                 setSearchParams((prev) => ({ ...prev, facilityName: e?.target?.value }))
               }
