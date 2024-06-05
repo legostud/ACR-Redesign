@@ -95,7 +95,7 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
   }, [errors]);
 
   return (
-    <div data-ref="facility-search-filters" id="facility-search-filters" tabIndex={-1}>
+    <div data-ref="facility-search-filters" id="fs-filters" tabIndex={-1}>
       <Flex gap="5" asChild direction={{ initial: 'column' }} className="md:flex-row">
         <fieldset className="mb-8 md:mb-12">
           <legend className="title-c mb-6">{searchByLabel}</legend>

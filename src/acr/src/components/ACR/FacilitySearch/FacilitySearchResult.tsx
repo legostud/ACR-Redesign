@@ -105,6 +105,8 @@ const FacilitySearchResult = (props: FacilitySearchResultProps): JSX.Element => 
     <Grid
       data-ref="facility-search-result"
       className="grid-cols-1 gap-x-[30px] gap-y-6 border-b-[1px] border-t-body py-6 md:grid-cols-2 md:gap-y-[20px] md:py-12 lg:grid-cols-4"
+      id={index === 0 ? 'fs-result' : ''}
+      tabIndex={-1}
     >
       <div
         className={cn('w-fit rounded-[4px] px-3 py-1 font-medium text-white', {

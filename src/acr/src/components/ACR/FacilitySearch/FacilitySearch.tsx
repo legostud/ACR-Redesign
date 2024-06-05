@@ -19,7 +19,7 @@ const FacilitySearch = (props: FacilitySearchProps): JSX.Element => {
         <SearchFilters {...props} />
         {searchResults?.length > 0 && (
           <SkipLink
-            anchorId="facility-search-results"
+            anchorId="fs-result"
             text="Skip To Results Listing"
             id="fs-results-skip-link"
             styleClasses="py-2 text-[14px] !top-auto mt-[5px]"
@@ -28,7 +28,7 @@ const FacilitySearch = (props: FacilitySearchProps): JSX.Element => {
         <SearchMap />
         {searchResults?.length > 0 && (
           <SkipLink
-            anchorId="facility-search-filters"
+            anchorId="fs-filters"
             text="Skip To Filters"
             id="fs-filters-skip-link"
             styleClasses="py-2 text-[14px]"

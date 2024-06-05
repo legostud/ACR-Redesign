@@ -92,12 +92,13 @@ const FacilitySearchMap = (): JSX.Element => {
             })}
           >
             <button
-              className="relative"
+              className="relative -top-[18px] h-[35px] w-6"
               onClick={() => {
                 handleMarkerClick(index, result);
               }}
+              aria-label={infoWindowData?.info?.name}
             >
-              <div className="absolute -top-10 left-[-12px] h-6 w-6 rounded-[50%] bg-indigo-100 text-white after:absolute after:bottom-[-22px] after:left-[2px] after:h-0 after:w-0 after:border-[10px] after:border-t-[17px] after:border-solid after:border-transparent after:border-t-indigo-100 after:content-['']">
+              <div className="absolute top-0 h-6 w-6 rounded-[50%] bg-indigo-100 text-white after:absolute after:bottom-[-22px] after:left-[2px] after:h-0 after:w-0 after:border-[10px] after:border-t-[17px] after:border-solid after:border-transparent after:border-t-indigo-100 after:content-['']">
                 <span className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] text-[10px] font-medium">
                   {index + 1}
                 </span>

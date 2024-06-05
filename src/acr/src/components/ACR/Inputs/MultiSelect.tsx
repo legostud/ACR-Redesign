@@ -81,11 +81,11 @@ const MultiSelect = (props: DropdropProps) => {
           {label}
         </Text>
       )}
-      <div className="relative">
+      <div className="relative rounded-4 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-t-primary">
         <button
           type="button"
           className={cn(
-            'body-sm inline-flex h-[56px] w-full items-center justify-between gap-[5px] rounded-[8px] border-[1px] border-indigo-100 bg-white px-[15px] py-2',
+            'body-sm inline-flex h-[56px] w-full items-center justify-between gap-[5px] rounded-[8px] border-[1px] border-indigo-100 bg-white px-[15px] py-2 outline-none',
             {
               'rounded-bl-none rounded-br-none': isOpen,
             },
@@ -130,7 +130,7 @@ const MultiSelect = (props: DropdropProps) => {
 
         <ul
           className={cn(
-            'rounded-md absolute z-10 max-h-96 w-full overflow-scroll rounded-b-[8px] border-[1px] border-t-0 border-indigo-100 bg-white',
+            'absolute z-10 max-h-96 w-full overflow-scroll rounded-md rounded-b-[8px] border-[1px] border-t-0 border-indigo-100 bg-white',
             { hidden: !(isOpen && items?.length) }
           )}
           {...getMenuProps()}

@@ -55,7 +55,7 @@ const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>
         {...rest}
         className={twMerge(
           cn(
-            'body-sm group h-[56px] bg-white shadow-[inset_0_0_0_1px] shadow-indigo-100 outline-none [&>input]:px-4 [&>input]:indent-0',
+            'body-sm group h-[56px] bg-white shadow-[inset_0_0_0_1px] shadow-indigo-100 outline-2 outline-offset-2 outline-t-primary [&>input]:px-4 [&>input]:indent-0',
             { 'bg-gray-20': disabled }
           )
         )}
