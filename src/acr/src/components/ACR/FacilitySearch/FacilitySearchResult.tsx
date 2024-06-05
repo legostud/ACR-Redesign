@@ -122,7 +122,7 @@ const FacilitySearchResult = (props: FacilitySearchResultProps): JSX.Element => 
       <div className="col-start-1 md:col-start-2">
         {result?.modalities && (
           <>
-            <Text as="p" className="sub-heading-b mb-2">
+            <Text as="p" className="sub-heading-b mb-2 !font-medium">
               {labels?.modalitiesOfferedLabel}
             </Text>
             <Text as="p" className="body-sm">

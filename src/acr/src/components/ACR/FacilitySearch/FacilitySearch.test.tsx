@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../../../../test-utils';
 import FacilitySearchApp from 'components/ACR/FacilitySearch/FacilitySearchApp';
 import { defaultMockData as mockData } from './FacilitySearch.mock';
 

@@ -11,23 +11,29 @@ type FacilitySearchResultsProps = {
 const FacilitySearchResults = (props: FacilitySearchResultsProps): JSX.Element => {
   const { totalResults } = props;
 
-  const { pageData, labels } = useContext(FacilitySearchContext);
+  const { pagination, labels } = useContext(FacilitySearchContext);
 
-  const { noResultsFoundLabel, resultsFoundLabel } = labels ?? {};
+  const { pageData, currentPage, pageLimit } = pagination ?? {};
+
+  const { showingLabel, noResultsFoundLabel, resultsFoundLabel } = labels ?? {};
+
+  const range = `${(currentPage - 1) * pageLimit + 1} - ${Math.min(currentPage * pageLimit, totalResults)}`;
 
   const resultsString =
     totalResults === 0 ? (
       <>
-        {resultsFoundLabel}. {noResultsFoundLabel}
+        <strong>0</strong> {resultsFoundLabel}. {noResultsFoundLabel}
       </>
     ) : (
-      <>{totalResults === 1 ? 'result found' : resultsFoundLabel}</>
+      <>
+        {showingLabel?.replace('{RANGE}', range)} {totalResults} {resultsFoundLabel}
+      </>
     );
 
   return (
     <div data-ref="facility-search-results" aria-live="polite" aria-atomic="true">
-      <Text className="mb-4 mt-12 text-[24px] font-medium md:mb-6" as="p">
-        <strong>{totalResults}</strong> {resultsString}
+      <Text className="mb-4 mt-12 text-[24px] font-medium md:mb-6" as="p" aria-live="polite">
+        {resultsString}
       </Text>
       {pageData?.map((r, index) => <FacilitySearchResult key={index} result={r} index={index} />)}
     </div>

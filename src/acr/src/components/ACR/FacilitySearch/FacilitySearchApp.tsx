@@ -34,6 +34,7 @@ const FacilitySearchApp = (props: FacilitySearchProps): JSX.Element => {
     designationLabel: t(dictionaryKeys.FACILITY_SEARCH_DESIGNATION),
     resultsFoundLabel: t(dictionaryKeys.FACILITY_SEARCH_RESULTS_FOUND),
     searchButtonLabel: t(dictionaryKeys.FACILITY_SEARCH_SEARCH),
+    showingLabel: t(dictionaryKeys.FACILITY_SEARCH_SHOWING),
     noResultsFoundLabel: t(dictionaryKeys.FACILITY_SEARCH_NO_RESULTS),
     accreditedLabel: t(dictionaryKeys.FACILITY_SEARCH_ACCREDITED),
     inProgressLabel: t(dictionaryKeys.FACILITY_SEARCH_IN_PROGRESS),

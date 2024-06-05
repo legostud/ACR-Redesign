@@ -46,6 +46,7 @@ export type FacilitySearchLabels = {
     designationLabel: string;
     resultsFoundLabel: string;
     searchButtonLabel: string;
+    showingLabel: string;
     noResultsFoundLabel: string;
     accreditedLabel: string;
     inProgressLabel: string;

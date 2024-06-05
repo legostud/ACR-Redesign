@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
 import { PaginationBaseProps } from './Pagination.props';
 
 import { paginationRange, isFirstPage, isLastPage } from './Pagination.util';
-import usePagination from 'src/hooks/usePagination';
 
 import { Flex, Text } from '@radix-ui/themes';
 import Icon from 'components/ACR/Icon/Icon';
@@ -17,11 +15,11 @@ const RESULTS_PER_PAGE = [10, 20, 30];
  * @param props The UI data coming from the parent component
  * @returns
  */
-const PaginationBase = (props: PaginationBaseProps): JSX.Element => {
-  const { items, setPageItems, testId } = props;
 
-  const { pageData, pageLimit, changePage, changePageLimit, currentPage, pageCount } =
-    usePagination(items);
+const PaginationBase = <T,>(props: PaginationBaseProps<T>): JSX.Element => {
+  const { items, pagination, testId } = props;
+
+  const { pageLimit, changePage, changePageLimit, currentPage, pageCount } = pagination ?? {};
 
   const pages = paginationRange(pageCount, currentPage);
 
@@ -29,11 +27,6 @@ const PaginationBase = (props: PaginationBaseProps): JSX.Element => {
   const handlePageChange = (page: number) => {
     changePage(page);
   };
-
-  useEffect(() => {
-    setPageItems(pageData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, pageLimit, items]);
 
   if (!items || items?.length === 0) {
     return <></>;

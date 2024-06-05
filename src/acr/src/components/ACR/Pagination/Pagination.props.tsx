@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TestProps } from 'types/Test.props';
 import { StyleProps } from 'types/Style.props';
+import { Pagination } from 'src/hooks/usePagination';
 
-export type PaginationBaseProps = TestProps &
+export type PaginationBaseProps<T> = TestProps &
   StyleProps & {
-    items: any[];
-    setPageItems: (items: any[]) => void;
+    pagination: Pagination<T>;
+    items: T[];
   };

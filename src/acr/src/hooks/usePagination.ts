@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const usePagination = (items: any[]) => {
+export type Pagination<T> = {
+  currentPage: number;
+  pageCount: number;
+  pageLimit: number;
+  pageData: T[];
+  changePage: (pageNumber: number) => void;
+  changePageLimit: (pageLimit: number) => void;
+  nextPage: () => void;
+  previousPage: () => void;
+};
+
+const usePagination = <T>(items: T[]): Pagination<T> => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageLimit, setPageLimit] = useState(10);
 

@@ -11,7 +11,7 @@ import LoadingWrapper from '../LoadingWrapper/LoadingWrapper';
 import SkipLink from '../SkipLink/SkipLink';
 
 const FacilitySearch = (props: FacilitySearchProps): JSX.Element => {
-  const { isLoading, searchResults, setPageData } = useContext(FacilitySearchContext);
+  const { isLoading, searchResults, pagination } = useContext(FacilitySearchContext);
 
   return (
     <>
@@ -36,7 +36,7 @@ const FacilitySearch = (props: FacilitySearchProps): JSX.Element => {
         )}
       </LoadingWrapper>
       <SearchResults totalResults={searchResults?.length} />
-      <PaginationBase items={searchResults} setPageItems={setPageData} />
+      <PaginationBase items={searchResults} pagination={pagination} />
     </>
   );
 };
