@@ -17,7 +17,16 @@ import cn from 'classnames';
  * @returns
  */
 const LinkBase = (props: LinkBaseProps): JSX.Element | null => {
-  const { link, testId, styleClasses, style = ButtonStyle.BUTTON, hasIcon, animate = true } = props;
+  const {
+    link,
+    testId,
+    styleClasses,
+    iconStyleClasses,
+    style = ButtonStyle.BUTTON,
+    hasIcon,
+    animate = true,
+  } = props;
+  console.log(iconStyleClasses);
 
   const { sitecoreContext } = useSitecoreContext();
   const isPageEditing = sitecoreContext?.pageEditing ?? false;
@@ -63,7 +72,7 @@ const LinkBase = (props: LinkBaseProps): JSX.Element | null => {
     return (
       <Icon
         iconName={getIcon()}
-        className={cn('flex-none', {
+        className={cn(`flex-none ${iconStyleClasses}`, {
           'h-[30px] w-[30px] group-hover:fill-t-link-hover group-hover:[&>circle]:stroke-t-link-hover group-hover:[&>path]:fill-t-btn-text':
             isCTALink,
         })}
