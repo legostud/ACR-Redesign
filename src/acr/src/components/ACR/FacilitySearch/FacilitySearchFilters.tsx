@@ -149,15 +149,17 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
                 setSearchParams((prev) => ({ ...prev, latitude: null, longitude: null }))
               }
             />
-            {errors['zipCity'] && (
-              <span
-                id="zipCityErr"
-                aria-live="polite"
-                className="absolute mt-1 text-[12px] text-red-100"
-              >
-                {errors['zipCity']}
-              </span>
-            )}
+            <div className="relative" aria-live="polite">
+              {errors['zipCity'] && (
+                <span
+                  id="zipCityErr"
+                  aria-live="polite"
+                  className="absolute mt-1 text-[14px] text-red-25"
+                >
+                  {errors['zipCity']}
+                </span>
+              )}
+            </div>
           </div>
         ) : isFacilitySearch ? (
           <div className="relative grow-0 basis-[calc(25%-30px)] md:max-w-[240px]">
@@ -171,15 +173,17 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
                 setSearchParams((prev) => ({ ...prev, facilityName: e?.target?.value }))
               }
             />
-            {errors['facility'] && (
-              <span
-                id="facilityErr"
-                aria-live="polite"
-                className="absolute mt-1 text-[12px] text-red-100"
-              >
-                {errors['facility']}
-              </span>
-            )}
+            <div className="relative" aria-live="polite">
+              {errors['facility'] && (
+                <span
+                  id="facilityErr"
+                  aria-live="polite"
+                  className="absolute mt-1 text-[14px] text-red-25"
+                >
+                  {errors['facility']}
+                </span>
+              )}
+            </div>
           </div>
         ) : (
           <Select

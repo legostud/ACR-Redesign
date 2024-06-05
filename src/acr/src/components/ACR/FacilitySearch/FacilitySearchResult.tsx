@@ -107,62 +107,65 @@ const FacilitySearchResult = (props: FacilitySearchResultProps): JSX.Element => 
       className="grid-cols-1 gap-x-[30px] gap-y-6 border-b-[1px] border-t-body py-6 md:grid-cols-2 md:gap-y-[20px] md:py-12 lg:grid-cols-4"
       id={index === 0 ? 'fs-result' : ''}
       tabIndex={-1}
+      asChild
     >
-      <div
-        className={cn('w-fit rounded-[4px] px-3 py-1 font-medium text-white', {
-          'bg-purple-100': isAccredited,
-          'bg-green-50': isInProgress,
-        })}
-      >
-        {isAccredited ? labels?.accreditedLabel : labels?.inProgressLabel}
-      </div>
-      <Text as="p" className="title-b md:title-c col-start-1">
-        {index + 1}) {result?.name}
-      </Text>
-      <div className="col-start-1 md:col-start-2">
-        {result?.modalities && (
-          <>
-            <Text as="p" className="sub-heading-b mb-2 !font-medium">
-              {labels?.modalitiesOfferedLabel}
-            </Text>
-            <Text as="p" className="body-sm">
-              {result?.modalities}
-            </Text>
-          </>
-        )}
-      </div>
-      <div className="body-sm col-start-1 md:col-start-1 lg:col-start-3">
-        <p>{result?.address}</p>
-        <p>
-          {result?.city}, {result?.state} {result?.zip}
-        </p>
-        <p>{result?.phone}</p>
-      </div>
-      <div className="col-start-1 flex flex-wrap gap-[10px] md:col-start-2 lg:col-start-4 lg:justify-center">
-        {getSealImages()?.map((image, index) => (
-          <a key={index} href={`#${image.id}`} className="h-max max-w-[75px]">
-            <img src={image.imageSrc} alt="" />
-          </a>
-        ))}
-      </div>
-      <div className="col-start-1 flex items-center justify-between gap-4 md:flex-col md:items-start md:justify-start lg:col-start-5 lg:items-center">
-        <button
-          className="button font-medium"
-          onClick={() => setActiveLocation({ index, info: result })}
+      <aside aria-label={result?.name}>
+        <div
+          className={cn('w-fit rounded-[4px] px-3 py-1 font-medium text-white', {
+            'bg-purple-100': isAccredited,
+            'bg-green-50': isInProgress,
+          })}
         >
-          {labels?.viewMapLabel}
-        </button>
-        <LinkBase
-          link={{
-            value: {
-              href: `https://www.google.com/maps/dir/?api=1&destination=${result?.lat},${result?.lng}`,
-              text: labels?.getDirectionsLabel,
-              target: '__blank',
-            },
-          }}
-          style={ButtonStyle.CTA}
-        />
-      </div>
+          {isAccredited ? labels?.accreditedLabel : labels?.inProgressLabel}
+        </div>
+        <Text as="p" className="title-b md:title-c col-start-1">
+          {index + 1}) {result?.name}
+        </Text>
+        <div className="col-start-1 md:col-start-2">
+          {result?.modalities && (
+            <>
+              <Text as="p" className="sub-heading-b mb-2 !font-medium">
+                {labels?.modalitiesOfferedLabel}
+              </Text>
+              <Text as="p" className="body-sm">
+                {result?.modalities}
+              </Text>
+            </>
+          )}
+        </div>
+        <div className="body-sm col-start-1 md:col-start-1 lg:col-start-3">
+          <p>{result?.address}</p>
+          <p>
+            {result?.city}, {result?.state} {result?.zip}
+          </p>
+          <p>{result?.phone}</p>
+        </div>
+        <div className="col-start-1 flex flex-wrap gap-[10px] md:col-start-2 lg:col-start-4 lg:justify-center">
+          {getSealImages()?.map((image, index) => (
+            <a key={index} href={`#${image.id}`} className="h-max max-w-[75px]">
+              <img src={image.imageSrc} alt="" />
+            </a>
+          ))}
+        </div>
+        <div className="col-start-1 flex items-center justify-between gap-4 md:flex-col md:items-start md:justify-start lg:col-start-5 lg:items-center">
+          <button
+            className="button font-medium"
+            onClick={() => setActiveLocation({ index, info: result })}
+          >
+            {labels?.viewMapLabel}
+          </button>
+          <LinkBase
+            link={{
+              value: {
+                href: `https://www.google.com/maps/dir/?api=1&destination=${result?.lat},${result?.lng}`,
+                text: labels?.getDirectionsLabel,
+                target: '__blank',
+              },
+            }}
+            style={ButtonStyle.CTA}
+          />
+        </div>
+      </aside>
     </Grid>
   );
 };

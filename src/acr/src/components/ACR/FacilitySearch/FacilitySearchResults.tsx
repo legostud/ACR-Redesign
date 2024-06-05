@@ -31,7 +31,7 @@ const FacilitySearchResults = (props: FacilitySearchResultsProps): JSX.Element =
     );
 
   return (
-    <div data-ref="facility-search-results" aria-live="polite" aria-atomic="true">
+    <div data-ref="facility-search-results">
       <Text className="mb-4 mt-12 text-[24px] font-medium md:mb-6" as="p" aria-live="polite">
         {resultsString}
       </Text>
