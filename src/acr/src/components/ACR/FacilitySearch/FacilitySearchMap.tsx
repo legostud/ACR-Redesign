@@ -92,7 +92,7 @@ const FacilitySearchMap = (): JSX.Element => {
             })}
           >
             <button
-              className="relative -top-[18px] h-[35px] w-6"
+              className="relative -top-[18px] h-[35px] w-6 focus:z-10 focus:outline-indigo-100"
               onClick={() => {
                 handleMarkerClick(index, result);
               }}
@@ -124,7 +124,11 @@ const FacilitySearchMap = (): JSX.Element => {
                         <Icon iconName={IconName.CLOSE} />
                       </button>
                     </div>
-                    <Flex direction="column" gap="2" className="px-[30px] py-6 pt-4">
+                    <Flex
+                      direction="column"
+                      gap="2"
+                      className="px-[30px] py-6 pt-4 text-indigo-100"
+                    >
                       <div>
                         <p className="body-xs">{infoWindowData?.info?.address}</p>
                         <p className="body-xs">
@@ -140,6 +144,7 @@ const FacilitySearchMap = (): JSX.Element => {
                             target: '__blank',
                           },
                         }}
+                        styleClasses="text-indigo-100"
                         style={ButtonStyle.CTA}
                       />
                     </Flex>

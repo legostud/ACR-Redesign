@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { FacilitySearchContext } from './FaciltySearch.context';
 
 import { Text } from '@radix-ui/themes';
@@ -30,9 +30,24 @@ const FacilitySearchResults = (props: FacilitySearchResultsProps): JSX.Element =
       </>
     );
 
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (resultsRef?.current) {
+      const firstResult = resultsRef?.current?.querySelector('#fs-result') as HTMLElement;
+      resultsRef?.current?.scrollIntoView({ behavior: 'smooth' });
+      firstResult && firstResult.focus();
+    }
+  }, [resultsRef, pageData]);
+
   return (
-    <div data-ref="facility-search-results">
-      <Text className="mb-4 mt-12 text-[24px] font-medium md:mb-6" as="p" aria-live="polite">
+    <div data-ref="facility-search-results" ref={resultsRef}>
+      <Text
+        className="mb-4 mt-12 text-[24px] font-medium md:mb-6"
+        as="p"
+        aria-live="polite"
+        aria-atomic
+      >
         {resultsString}
       </Text>
       {pageData?.map((r, index) => <FacilitySearchResult key={index} result={r} index={index} />)}
