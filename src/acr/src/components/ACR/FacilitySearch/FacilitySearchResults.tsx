@@ -33,13 +33,13 @@ const FacilitySearchResults = (props: FacilitySearchResultsProps): JSX.Element =
   const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (resultsRef?.current) {
+    if (resultsRef?.current && pageData?.length > 0) {
       const firstResult = resultsRef?.current?.querySelector('#fs-result') as HTMLElement;
 
       resultsRef?.current?.scrollIntoView({ behavior: 'smooth' });
       firstResult && firstResult.focus();
     }
-  }, [resultsRef, currentPage]);
+  }, [resultsRef, currentPage, pageData]);
 
   return (
     <div data-ref="facility-search-results" ref={resultsRef}>

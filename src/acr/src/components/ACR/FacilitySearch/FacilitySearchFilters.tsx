@@ -138,18 +138,6 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
       >
         {isZipCitySearch ? (
           <div className="relative grow-0 basis-[calc(25%-30px)] md:max-w-[240px]">
-            {/* <Input
-              id="zipCity"
-              ref={autocompleteInputRef}
-              name={zipCityLabel}
-              label={zipCityLabel}
-              className="w-full"
-              aria-describedby="zipCityErr"
-              aria-invalid={errors['zipCity'] ? true : false}
-              onChange={() =>
-                setSearchParams((prev) => ({ ...prev, latitude: null, longitude: null }))
-              }
-            /> */}
             {isApiLoaded && (
               <SearchBox
                 id="zipCity"
@@ -159,7 +147,6 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
                 aria-describedby="zipCityErr"
                 aria-invalid={errors['zipCity'] ? true : false}
                 onChange={(v) =>
-                  // setSearchParams((prev) => ({ ...prev, latitude: null, longitude: null }))
                   setSearchParams((prev) => ({
                     ...prev,
                     latitude: `${v?.lat}`,

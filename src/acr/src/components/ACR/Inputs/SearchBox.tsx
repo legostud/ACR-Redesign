@@ -114,7 +114,7 @@ const SearchBox = (props: SearchBoxProps) => {
             return {
               id: prediction?.place_id,
               name: {
-                string: prediction?.structured_formatting?.main_text,
+                string: prediction?.structured_formatting?.main_text ?? '',
                 // To highlight the search term in suggested place names
                 length:
                   prediction?.structured_formatting?.main_text_matched_substrings?.[0]['length'],
@@ -122,7 +122,7 @@ const SearchBox = (props: SearchBoxProps) => {
                   prediction?.structured_formatting?.main_text_matched_substrings?.[0]['offset'],
               },
               address: {
-                string: prediction?.structured_formatting?.secondary_text,
+                string: prediction?.structured_formatting?.secondary_text ?? '',
                 // To highlight the search term in suggested place address
                 length:
                   prediction?.structured_formatting?.main_text_matched_substrings?.[0]['length'],
@@ -150,14 +150,13 @@ const SearchBox = (props: SearchBoxProps) => {
     <Flex data-ref="search-box" ref={searchBoxRef} direction="column" gap="2" className="relative">
       <Input
         label={label}
-        id={id}
         name={name}
         inputClassName={cn('w-full', {
-          'rounded-b-none': isOpen,
+          'rounded-b-none': isOpen && searchResult.autocompleteSuggestions.length,
         })}
         type="search"
         {...rest}
-        {...getInputProps()}
+        {...getInputProps({ id })}
       />
       <ul
         className={cn(
@@ -172,7 +171,7 @@ const SearchBox = (props: SearchBoxProps) => {
             return (
               <li
                 key={index}
-                className={cn('body-sm cursor-pointer px-[15px] py-[10px]', {
+                className={cn('body-sm cursor-pointer px-[15px] py-[10px] text-indigo-100', {
                   'bg-gray-20': highlightedIndex === index,
                 })}
                 {...getItemProps({ item, index })}
