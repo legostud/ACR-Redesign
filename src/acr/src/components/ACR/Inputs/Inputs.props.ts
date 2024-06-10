@@ -4,6 +4,7 @@ export type InputsProps = {
   name?: string;
   value?: string | number;
   className?: string;
+  inputClassName?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   disabled?: boolean;
 };

@@ -6,7 +6,7 @@ import { InputsProps } from './Inputs.props';
 import { twMerge } from 'tailwind-merge';
 import cn from 'classnames';
 
-type InputProps = InputsProps & {
+export type InputProps = InputsProps & {
   placeholder?: string;
   slot?: JSX.Element;
   type?:
@@ -33,6 +33,7 @@ const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>
     label,
     placeholder,
     className,
+    inputClassName,
     slot,
     onChange,
     disabled,
@@ -40,7 +41,7 @@ const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>
   } = props;
 
   return (
-    <label className={twMerge(cn('flex w-fit flex-col gap-2 text-t-body', className))}>
+    <label className={twMerge(cn('flex w-fit flex-col gap-2 text-t-body'), className)}>
       {label}
       <TextField.Root
         size="3"
@@ -57,7 +58,8 @@ const Input = forwardRef((props: InputProps, ref: ForwardedRef<HTMLInputElement>
           cn(
             'body-sm group h-[56px] bg-white shadow-[inset_0_0_0_1px] shadow-indigo-100 outline-2 outline-offset-2 outline-t-primary [&>input]:px-4 [&>input]:indent-0',
             { 'bg-gray-20': disabled }
-          )
+          ),
+          inputClassName
         )}
       >
         {slot && (

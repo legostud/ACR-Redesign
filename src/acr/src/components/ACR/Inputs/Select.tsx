@@ -87,7 +87,8 @@ const Dropdown = (props: DropdropProps) => {
         <ul
           className={cn(
             'absolute z-10 max-h-96 w-full overflow-y-auto rounded-md rounded-b-[8px] border-[1px] border-t-0 border-indigo-100 bg-white',
-            { hidden: !(isOpen && items?.length) }
+            { hidden: !(isOpen && items?.length) },
+            { 'rounded-t-none': isOpen }
           )}
           {...getMenuProps()}
         >

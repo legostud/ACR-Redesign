@@ -8,6 +8,7 @@ import { Flex } from '@radix-ui/themes';
 import Radio from '../Inputs/Radio';
 import Select, { SelectItem } from '../Inputs/Select';
 import Input from '../Inputs/Input';
+import SearchBox from '../Inputs/SearchBox';
 
 const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
   const { externalFields } = props;
@@ -137,7 +138,7 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
       >
         {isZipCitySearch ? (
           <div className="relative grow-0 basis-[calc(25%-30px)] md:max-w-[240px]">
-            <Input
+            {/* <Input
               id="zipCity"
               ref={autocompleteInputRef}
               name={zipCityLabel}
@@ -148,7 +149,25 @@ const FacilitySearchFilters = (props: FacilitySearchProps): JSX.Element => {
               onChange={() =>
                 setSearchParams((prev) => ({ ...prev, latitude: null, longitude: null }))
               }
-            />
+            /> */}
+            {isApiLoaded && (
+              <SearchBox
+                id="zipCity"
+                name={zipCityLabel}
+                label={zipCityLabel}
+                className="w-full"
+                aria-describedby="zipCityErr"
+                aria-invalid={errors['zipCity'] ? true : false}
+                onChange={(v) =>
+                  // setSearchParams((prev) => ({ ...prev, latitude: null, longitude: null }))
+                  setSearchParams((prev) => ({
+                    ...prev,
+                    latitude: `${v?.lat}`,
+                    longitude: `${v?.lng}`,
+                  }))
+                }
+              />
+            )}
             <div className="relative" aria-live="polite">
               {errors['zipCity'] && (
                 <span
