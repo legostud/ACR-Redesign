@@ -82,7 +82,7 @@ const Layout = ({ layoutData, headLinks }: LayoutProps): JSX.Element => {
       <Head>
         <title>{fields?.title?.value?.toString() || 'Page'}</title>
         <meta name="description" content={fields?.summary?.value?.toString() || 'Summary'} />
-        <link rel="caconical" href={`${publicUrl}${router.asPath}`} />
+        <link rel="canonical" href={`${publicUrl}${router.asPath}`} />
         <link rel="icon" href={`${publicUrl}/favicon.ico`} />
         {headLinks.map((headLink) => (
           <link rel={headLink.rel} key={headLink.href} href={headLink.href} />
